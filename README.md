@@ -6,8 +6,10 @@ pokemon list.
 # Done:
 
 - Displaying a list of Pokémon
+![image](https://user-images.githubusercontent.com/100797994/227577656-29505306-2389-45fc-a91d-9dc5a3e883ac.png)
 - Basic styles
 - Pokemon card with basic information
+![image](https://user-images.githubusercontent.com/100797994/227577750-deba3acb-44c5-40fe-9eb6-5f0a372b105e.png)
 
 # Backlog:
 
