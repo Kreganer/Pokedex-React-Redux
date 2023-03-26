@@ -11,11 +11,7 @@ const Layout: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    searchParams.set('page', '1');
-    setSearchParams(searchParams);
-  }, []);
-
-  useEffect(() => {
+    checkPage();
     getDex({
       limit: limit,
       currentPage: Number(searchParams.get('page')) - 1 ?? 1,
@@ -27,6 +23,15 @@ const Layout: FC = () => {
       dexName: dexName
     });
   }, [dexName, searchParams, limit]);
+
+  const checkPage = () => {
+    if (searchParams.get('page') === null) {
+      searchParams.set('page', '1');
+      setSearchParams(searchParams);
+    } else {
+      return;
+    }
+  };
 
   return (
     <div>
