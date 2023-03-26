@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/Pokedex-React-Redux/static/js/main.cbbabbcd.js",
+    "index.html": "/Pokedex-React-Redux/index.html",
+    "main.cbbabbcd.js.map": "/Pokedex-React-Redux/static/js/main.cbbabbcd.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.cbbabbcd.js"
+  ]
+}
