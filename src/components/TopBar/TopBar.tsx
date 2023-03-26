@@ -15,8 +15,8 @@ const TopBar: FC = () => {
     <TopBarWrapper>
       <LeftSideWrapper>
         <TopBarTitle>
-          {dex?.name?.charAt(0).toLocaleUpperCase()}
-          {dex?.name?.slice(1)} Pokédex
+          {dex?.pokemonList.name?.charAt(0).toLocaleUpperCase()}
+          {dex?.pokemonList.name?.slice(1)} Pokédex
         </TopBarTitle>
 
         <PokemonsCount>
@@ -25,7 +25,7 @@ const TopBar: FC = () => {
             alt="coloredPokeball"
           />
 
-          <p>{dex?.pokemon_entries.length}</p>
+          <p>{dex?.pokemonList.pokemon_entries.length}</p>
         </PokemonsCount>
       </LeftSideWrapper>
 
