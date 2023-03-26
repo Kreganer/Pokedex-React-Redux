@@ -10,11 +10,12 @@ const Layout: FC = () => {
   const { getDex, getPokemons } = useActions();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  console.log();
-
   useEffect(() => {
     searchParams.set('page', '1');
     setSearchParams(searchParams);
+  }, []);
+
+  useEffect(() => {
     getDex({
       limit: limit,
       currentPage: Number(searchParams.get('page')) - 1 ?? 1,
