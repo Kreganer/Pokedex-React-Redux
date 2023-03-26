@@ -8,13 +8,23 @@ import PokemonList from '../PokemonList/PokemonList';
 const Layout: FC = () => {
   const { limit, dexName } = useAppSelector((state) => state.pokemonsReducer);
   const { getDex, getPokemons } = useActions();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   console.log();
 
   useEffect(() => {
-    getDex({ limit: limit, currentPage: Number(searchParams.get('page')) - 1, dexName: dexName });
-    getPokemons({ limit: limit, currentPage: Number(searchParams.get('page')) - 1, dexName: dexName });
+    searchParams.set('page', '1');
+    setSearchParams(searchParams);
+    getDex({
+      limit: limit,
+      currentPage: Number(searchParams.get('page')) - 1 ?? 1,
+      dexName: dexName
+    });
+    getPokemons({
+      limit: limit,
+      currentPage: Number(searchParams.get('page')) ?? 1,
+      dexName: dexName
+    });
   }, [dexName, searchParams, limit]);
 
   return (
