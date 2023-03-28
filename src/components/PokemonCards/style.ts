@@ -2,22 +2,32 @@ import styled, { keyframes } from 'styled-components';
 import { colorsForTypes } from '../../helpers/constants';
 import { theme } from '../../style';
 
-const hidePokemonSprite = keyframes`
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
+const showPokemonSprite = keyframes`
+  100% {clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)}
+  85% {clip-path: polygon(0% 0%, 70% 0%, 85% 100%, 0% 100%)}
+  15% {clip-path: polygon(0% 0%, 20% 0%, 35% 100%, 0% 100%)}
+  0% {clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)}
 `;
 
-const showPokemonSprite = keyframes`
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+const hidePokemonSprite = keyframes`
+  100% {clip-path: polygon(0% 0%, 100% 0%, 1000% 100%, 0% 100%)}
+  85% {clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 35% 100%)}
+  15% {clip-path: polygon(70% 0%, 100% 0%, 100% 100%, 85% 100%)}
+  0% {clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)}
+`;
+
+const showShinyPokemonSprite = keyframes`
+  0% {clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)}
+  15% {clip-path: polygon(0% 0%, 70% 0%, 85% 100%, 0% 100%)}
+  85% {clip-path: polygon(0% 0%, 20% 0%, 35% 100%, 0% 100%)}
+  100% {clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)}
+`;
+
+const hideShinyPokemonSprite = keyframes`
+  0% {clip-path: polygon(0% 0%, 100% 0%, 1000% 100%, 0% 100%)}
+  15% {clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 35% 100%)}
+  85% {clip-path: polygon(70% 0%, 100% 0%, 100% 100%, 85% 100%)}
+  100% {clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)}
 `;
 
 export const PokemonCard = styled.div`
@@ -29,7 +39,7 @@ export const PokemonCard = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`; 
+`;
 
 export const Type = styled.div`
   width: 100%;
@@ -71,27 +81,34 @@ export const CurrentPokemonInfo = styled.div`
 `;
 
 export const PokemonImagesWrapper = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  :hover :last-child {
+    animation: ${showShinyPokemonSprite} 1s forwards ease-in;
+  }
+  :hover :first-child {
+    animation: ${hidePokemonSprite} 1s forwards ease-in;
+  }
 `;
 
 export const PokemonCardImage = styled.img`
+  position: absolute;
   width: 250px;
   height: 250px;
-  margin-left: -250px;
   object-fit: cover;
   object-position: 0 0;
-  animation: ${showPokemonSprite} 1s forwards normal;
-  :hover {
-    animation: ${hidePokemonSprite} 1s forwards normal;
-  }
-  background: rgba(204, 204, 204, 1);
+  animation: ${showPokemonSprite} 1s forwards ease-in;
 `;
 
 export const PokemonCardImageShiny = styled.img`
+  position: absolute;
   width: 250px;
   height: 250px;
+  animation: ${hideShinyPokemonSprite} 1s forwards ease-in;
 `;
 
 export const PokemonCardBottom = styled.div`

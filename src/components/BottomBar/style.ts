@@ -29,8 +29,10 @@ export const StyledButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid;
+  border-color: ${theme.light.backgroundWhite};
   border-radius: 50%;
   padding: 0 5px;
-  background: ${theme.light.backgroundWhite};
-  color: ${theme.light.textColorBlack};
+  background: ${theme.light.backgroundBlack};
+  color: ${theme.light.textColorWhite};
 `;

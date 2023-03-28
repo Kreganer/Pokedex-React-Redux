@@ -32,7 +32,7 @@ const PokemonCards: FC<IPokemonCards> = ({ currentPokemon }) => {
         {currentPokemon?.sprites.other.home.front_shiny === null ? (
           <PokemonImagesWrapper>
             {currentPokemon.sprites.other['official-artwork'].front_shiny === null ? (
-              <img
+              <PokemonCardImageShiny
                 style={{ width: '200px' }}
                 src="https://projectpokemon.org/images/sprites-models/homeimg/poke_capture_0201_027_uk_n_00000000_f_r.png"
                 alt="Shiny pokemon image"
@@ -52,7 +52,7 @@ const PokemonCards: FC<IPokemonCards> = ({ currentPokemon }) => {
         ) : (
           <PokemonImagesWrapper>
             {currentPokemon?.sprites.other.home.front_shiny === null ? (
-              <img
+              <PokemonCardImageShiny
                 src="https://projectpokemon.org/images/sprites-models/homeimg/poke_capture_0201_027_uk_n_00000000_f_r.png"
                 alt="Shiny pokemon image"
               />

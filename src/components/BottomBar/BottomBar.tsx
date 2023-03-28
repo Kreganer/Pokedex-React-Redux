@@ -29,8 +29,10 @@ const BottomBar: FC = () => {
             color: 'white'
           },
           button: {
-            backgroundColor: 'white',
-            borderRadius: '15px'
+            backgroundColor: 'black',
+            color: 'white',
+            borderRadius: '15px',
+            borderColor: 'white'
           },
           '.css-19xm0h7-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected': {
             backgroundColor: 'rgba(255, 255, 255, 0.75)'
@@ -46,8 +48,8 @@ const BottomBar: FC = () => {
         count={dex?.amountPages}
         variant="outlined"
         shape="rounded"
-        siblingCount={0}
-        boundaryCount={2}
+        siblingCount={1}
+        boundaryCount={1}
         page={Number(searchParams.get('page'))}
         onChange={(e, page) => handleChangePage(page.toString())}
       />
