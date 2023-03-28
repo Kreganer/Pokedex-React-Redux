@@ -5,11 +5,6 @@ export interface IPokemonList {
   };
 }
 
-// export interface IPokemonList {
-//   name?: string;
-//   url?: string;
-// }
-
 export interface PayloadPokemons {
   count: number | null;
   next: string | null;
@@ -20,24 +15,18 @@ export interface PayloadPokemons {
   pokemon: Pokemon;
 }
 
-// export interface PayloadPokemons {
-//   count: number | null;
-//   next: string | null;
-//   previous: string | null;
-//   results: IPokemonList[] | [];
-//   data: Pokemon[] | null;
-//   pokemon: Pokemon;
-// }
-
 export interface Dex {
-  name: string | null;
-  names: {
-    language: {
-      name: string | null;
-      url: string | null;
+  amountPages: number;
+  pokemonList: {
+    name: string | null;
+    names: {
+      language: {
+        name: string | null;
+        url: string | null;
+      };
     };
-  };
-  pokemon_entries: IPokemonList[] | [];
+    pokemon_entries: IPokemonList[] | [];
+  }
 }
 
 export interface Pokemon {
@@ -110,4 +99,8 @@ export interface IPokemonTypes {
     name: string;
     url: string;
   };
+}
+
+export interface IPokemonCards {
+  currentPokemon: Pokemon;
 }

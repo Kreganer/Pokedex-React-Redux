@@ -4,24 +4,20 @@ import { url } from '../helpers/constants';
 import { PayloadPokemons, Pokemon } from '../models/models';
 
 interface PageParams {
-  page: number;
+  currentPage: number;
+  amountPages?: number;
   limit: number;
   sort?: string | null;
   search?: string | null;
   dexName?: string | null;
 }
 
-interface PokemonsParams {
-  type?: string | null;
-  name?: string | null;
-  dexName?: string | null;
-}
-
-export const getDex = createAsyncThunk('dex/fetch', async (query: PokemonsParams) => {
+export const getDex = createAsyncThunk('dex/fetch', async (query: PageParams) => {
   try {
     const pokemonList = await axios.get<PayloadPokemons>(`${url}pokedex/${query.dexName}`);
+    const maxPages = Math.ceil(pokemonList.data.pokemon_entries.length / query.limit);
 
-    return pokemonList.data;
+    return { pokemonList: pokemonList.data, amountPages: maxPages };
   } catch (e) {
     return e;
   }
@@ -33,14 +29,14 @@ export const getPokemons = createAsyncThunk('pokemons/fetch', async (query: Page
 
     const pokemonSpeciesList = [];
     const maxPages = Math.floor(pokemonList.data.pokemon_entries.length / query.limit);
-    let lenght = query.page * query.limit + query.limit;
+    const currentPage = query.currentPage - 1;
+    let lenght = currentPage * query.limit + query.limit;
 
-    if (query.page === maxPages) {
-      // Исправить? Костыль?
+    if (currentPage === maxPages) {
       lenght = pokemonList.data.pokemon_entries.length;
     }
 
-    for (let index = query.page * query.limit; index < lenght; index++) {
+    for (let index = currentPage * query.limit; index < lenght; index++) {
       const pokemon = await axios.get<Pokemon>(
         `${url}pokemon-species/${pokemonList.data.pokemon_entries[index].pokemon_species.name}`
       );

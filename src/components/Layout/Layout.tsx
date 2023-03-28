@@ -1,28 +1,36 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
+import { useActions, useAppSelector } from '../../store/hooks';
+import { useSearchParams } from 'react-router-dom';
 import TopBar from '../TopBar/TopBar';
 import BottomBar from '../BottomBar/BottomBar';
 import PokemonList from '../PokemonList/PokemonList';
-import { useActions, useAppSelector } from '../../store/hooks';
 
 const Layout: FC = () => {
-  const [limit, setLimit] = useState(20);
-  const [page, setOffset] = useState(0);
-  const [dexName, setDexName] = useState('national');
+  const { limit, dexName } = useAppSelector((state) => state.pokemonsReducer);
   const { getDex, getPokemons } = useActions();
-  const { dex } = useAppSelector((state) => state.pokemonsReducer);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    getDex({ dexName: dexName });
-    getPokemons({ limit: limit, page: page, dexName: dexName });
-    getPagesCount();
-  }, [dexName, page, limit]);
+    checkPage();
+    getDex({
+      limit: limit,
+      currentPage: Number(searchParams.get('page')) - 1 ?? 1,
+      dexName: dexName
+    });
+    getPokemons({
+      limit: limit,
+      currentPage: Number(searchParams.get('page')) ?? 1,
+      dexName: dexName
+    });
+  }, [dexName, searchParams, limit]);
 
-  const getPagesCount = () => {
-    const dexLength = dex?.pokemon_entries.length;
-    if (dexLength) {
-      const pagesCount = Math.floor(dexLength / limit);
+  const checkPage = () => {
+    if (searchParams.get('page') === null) {
+      searchParams.set('page', '1');
+      setSearchParams(searchParams);
+    } else {
+      return;
     }
-    return 'Ошибка получения количества страниц';
   };
 
   return (
