@@ -39,12 +39,12 @@ const PokemonList: FC = () => {
 
               <PokemonInfo>
                 <div>
-                  No.{' '}
-                  {
+                  No. {pokemon.id}
+                  {/* {
                     dex.pokemonList.pokemon_entries.find(
                       (p) => p.pokemon_species.name === pokemon.name
                     )?.entry_number
-                  }{' '}
+                  } */}
                 </div>
 
                 <div>
