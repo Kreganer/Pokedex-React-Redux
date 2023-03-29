@@ -29,14 +29,10 @@ export const getPokemons = createAsyncThunk('pokemons/fetch', async (query: Page
 
     for (let index = currentPage * query.limit; index < length; index++) {
       const pokemon = await axios.get<Pokemon>(
-        `${url}pokemon-species/${pokemonList.data.pokemon_entries[index].pokemon_species.name}`
+        `${pokemonList.data.pokemon_entries[index].pokemon_species.url?.replace('-species', '')}`
       );
 
-      const pokemonSpecies = await axios.get<Pokemon>(
-        `${url}pokemon/${pokemon.data.varieties[0].pokemon.name}`
-      );
-
-      pokemonSpeciesList.push(pokemonSpecies.data);
+      pokemonSpeciesList.push(pokemon.data);
     }
 
     return {

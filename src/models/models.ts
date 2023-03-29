@@ -1,10 +1,3 @@
-export interface IPokemonList {
-  pokemon_species: {
-    name: string | null | undefined;
-    url: string | null | undefined;
-  };
-}
-
 export interface PayloadPokemons {
   count: number | null;
   next: string | null;
@@ -45,7 +38,7 @@ export interface Pokemon {
   is_default: boolean | null;
   location_area_encounters: string | null;
   moves: IMovesSpecies[];
-  name: string | null;
+  name: string;
   order: number;
   past_types: null;
   species: IPokemonList[];
@@ -67,6 +60,14 @@ export interface Pokemon {
   types: IPokemonTypes[];
   weight: number | null;
   varieties: PokemonVarieties[] | [];
+}
+
+export interface IPokemonList {
+  entry_number: number | null;
+  pokemon_species: {
+    name: string | null | undefined;
+    url: string | null | undefined;
+  };
 }
 
 export interface PokemonVarieties {
