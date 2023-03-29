@@ -6,21 +6,17 @@ import BottomBar from '../BottomBar/BottomBar';
 import PokemonList from '../PokemonList/PokemonList';
 
 const Layout: FC = () => {
-  const { limit, dexName } = useAppSelector((state) => state.pokemonsReducer);
-  const { getDex, getPokemons } = useActions();
+  const { limit, dexName, dex } = useAppSelector((state) => state.pokemonsReducer);
+  const { getPokemons } = useActions();
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     checkPage();
-    getDex({
-      limit: limit,
-      currentPage: Number(searchParams.get('page')) - 1 ?? 1,
-      dexName: dexName
-    });
     getPokemons({
       limit: limit,
       currentPage: Number(searchParams.get('page')) ?? 1,
-      dexName: dexName
+      dexName: dexName,
+      dex: dex
     });
   }, [dexName, searchParams, limit]);
 

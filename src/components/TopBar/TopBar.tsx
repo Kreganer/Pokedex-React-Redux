@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useAppSelector } from '../../store/hooks';
+import { Pokeball } from '../../icons/index';
 import {
   LeftSideWrapper,
   PokemonsCount,
@@ -20,10 +21,7 @@ const TopBar: FC = () => {
         </TopBarTitle>
 
         <PokemonsCount>
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg"
-            alt="coloredPokeball"
-          />
+          <img src={Pokeball} alt="coloredPokeball" />
 
           <p>{dex?.pokemonList.pokemon_entries.length}</p>
         </PokemonsCount>

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { url } from '../helpers/constants';
-import { PayloadPokemons, Pokemon } from '../models/models';
+import { Dex, PayloadPokemons, Pokemon } from '../models/models';
 
 interface PageParams {
   currentPage: number;
@@ -10,33 +10,24 @@ interface PageParams {
   sort?: string | null;
   search?: string | null;
   dexName?: string | null;
+  dex?: Dex | null;
 }
-
-export const getDex = createAsyncThunk('dex/fetch', async (query: PageParams) => {
-  try {
-    const pokemonList = await axios.get<PayloadPokemons>(`${url}pokedex/${query.dexName}`);
-    const maxPages = Math.ceil(pokemonList.data.pokemon_entries.length / query.limit);
-
-    return { pokemonList: pokemonList.data, amountPages: maxPages };
-  } catch (e) {
-    return e;
-  }
-});
 
 export const getPokemons = createAsyncThunk('pokemons/fetch', async (query: PageParams) => {
   try {
-    const pokemonList = await axios.get<PayloadPokemons>(`${url}pokedex/${query.dexName}`);
+    const pokemonList = await axios.get<PayloadPokemons>(`${url}pokedex/${query.dexName}/`);
 
     const pokemonSpeciesList = [];
-    const maxPages = Math.floor(pokemonList.data.pokemon_entries.length / query.limit);
-    const currentPage = query.currentPage - 1;
-    let lenght = currentPage * query.limit + query.limit;
+    const maxPages = Math.ceil(pokemonList.data.pokemon_entries.length / query.limit);
 
-    if (currentPage === maxPages) {
-      lenght = pokemonList.data.pokemon_entries.length;
+    const currentPage = query.currentPage - 1;
+    let length = currentPage * query.limit + query.limit;
+
+    if (currentPage === maxPages - 1) {
+      length = pokemonList.data.pokemon_entries.length;
     }
 
-    for (let index = currentPage * query.limit; index < lenght; index++) {
+    for (let index = currentPage * query.limit; index < length; index++) {
       const pokemon = await axios.get<Pokemon>(
         `${url}pokemon-species/${pokemonList.data.pokemon_entries[index].pokemon_species.name}`
       );
@@ -48,13 +39,16 @@ export const getPokemons = createAsyncThunk('pokemons/fetch', async (query: Page
       pokemonSpeciesList.push(pokemonSpecies.data);
     }
 
-    return pokemonSpeciesList;
+    return {
+      pokemonList: pokemonList.data,
+      amountPages: maxPages,
+      pokemonSpeciesList: pokemonSpeciesList
+    };
   } catch (e) {
     return e;
   }
 });
 
 export const pokemonsThunkActions = {
-  getDex,
   getPokemons
 };

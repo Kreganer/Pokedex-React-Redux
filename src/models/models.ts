@@ -1,7 +1,7 @@
 export interface IPokemonList {
   pokemon_species: {
-    name: string | null;
-    url: string | null;
+    name: string | null | undefined;
+    url: string | null | undefined;
   };
 }
 
@@ -26,7 +26,8 @@ export interface Dex {
       };
     };
     pokemon_entries: IPokemonList[] | [];
-  }
+  };
+  pokemonSpeciesList: Pokemon[];
 }
 
 export interface Pokemon {

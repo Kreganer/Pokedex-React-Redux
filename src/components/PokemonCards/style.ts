@@ -97,8 +97,7 @@ export const PokemonImagesWrapper = styled.div`
 
 export const PokemonCardImage = styled.img`
   position: absolute;
-  width: 250px;
-  height: 250px;
+  height: 100%;
   object-fit: cover;
   object-position: 0 0;
   animation: ${showPokemonSprite} 1s forwards ease-in;
@@ -106,8 +105,7 @@ export const PokemonCardImage = styled.img`
 
 export const PokemonCardImageShiny = styled.img`
   position: absolute;
-  width: 250px;
-  height: 250px;
+  height: 100%;
   animation: ${hideShinyPokemonSprite} 1s forwards ease-in;
 `;
 

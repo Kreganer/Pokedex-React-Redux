@@ -14,7 +14,7 @@ import {
 } from './style';
 
 const PokemonList: FC = () => {
-  const { pokemonsSpeciesList } = useAppSelector((state) => state.pokemonsReducer);
+  const { dex } = useAppSelector((state) => state.pokemonsReducer);
   const [currentPokemon, setCurrentPokemon] = useState<Pokemon | null>(null);
 
   const showPokemonCard = (pokemonSpecies: Pokemon) => {
@@ -26,7 +26,7 @@ const PokemonList: FC = () => {
       <PokemonsWrapper>
         {currentPokemon ? <PokemonCards currentPokemon={currentPokemon} /> : <div></div>}
         <PokemonListWrapper>
-          {pokemonsSpeciesList?.map((pokemon) => (
+          {dex?.pokemonSpeciesList.map((pokemon) => (
             <PokemonBox onClick={() => showPokemonCard(pokemon)} key={pokemon.id}>
               {pokemon.sprites.front_default !== null ? (
                 <PokemonImage src={pokemon.sprites.front_default} alt="pokemon image" />
