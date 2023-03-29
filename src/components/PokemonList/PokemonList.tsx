@@ -38,11 +38,25 @@ const PokemonList: FC = () => {
               )}
 
               <PokemonInfo>
-                <div>No. {pokemon.id}</div>
+                <div>
+                  No.{' '}
+                  {
+                    dex.pokemonList.pokemon_entries.find(
+                      (p) => p.pokemon_species.name === pokemon.name
+                    )?.entry_number
+                  }{' '}
+                </div>
 
                 <div>
-                  {pokemon.name?.charAt(0).toLocaleUpperCase()}
-                  {pokemon.name?.slice(1)}
+                  {pokemon.name
+                    .split('-')
+                    .map((namesPart) => {
+                      const pokemonName =
+                        namesPart.charAt(0).toLocaleUpperCase() + namesPart.slice(1);
+
+                      return pokemonName;
+                    })
+                    .join(' ')}
                 </div>
               </PokemonInfo>
 

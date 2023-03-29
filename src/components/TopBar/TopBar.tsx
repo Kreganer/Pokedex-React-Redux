@@ -12,13 +12,18 @@ import {
 const TopBar: FC = () => {
   const { dex } = useAppSelector((state) => state.pokemonsReducer);
 
+  const convertDexName = () => {
+    const rightName = dex?.pokemonList.name?.split('-').map((word) => {
+      return word.charAt(0).toLocaleUpperCase() + word.slice(1);
+    });
+
+    return rightName?.join(' ');
+  };
+
   return (
     <TopBarWrapper>
       <LeftSideWrapper>
-        <TopBarTitle>
-          {dex?.pokemonList.name?.charAt(0).toLocaleUpperCase()}
-          {dex?.pokemonList.name?.slice(1)} Pokédex
-        </TopBarTitle>
+        <TopBarTitle>{convertDexName()} Pokédex</TopBarTitle>
 
         <PokemonsCount>
           <img src={Pokeball} alt="coloredPokeball" />
