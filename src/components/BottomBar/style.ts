@@ -9,8 +9,7 @@ export const BottomBarWrapper = styled.div`
   background: ${theme.light.backgroundBlack};
   display: flex;
   align-items: center;
-  justify-content: end;
-  grid-template: 30px;
+  justify-content: space-between;
   padding-right: 30px;
 `;
 
@@ -18,9 +17,7 @@ export const BottomButtonWrapper = styled.div`
   margin: 10px;
   display: flex;
   align-items: center;
-  grid-template: 15px;
   color: ${theme.light.textColorWhite};
-  cursor: pointer;
 `;
 
 export const StyledButton = styled.button`
@@ -33,6 +30,8 @@ export const StyledButton = styled.button`
   border-color: ${theme.light.backgroundWhite};
   border-radius: 50%;
   padding: 0 5px;
+  margin-left: 10px;
   background: ${theme.light.backgroundBlack};
   color: ${theme.light.textColorWhite};
+  cursor: pointer;
 `;

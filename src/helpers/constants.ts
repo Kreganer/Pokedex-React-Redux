@@ -74,3 +74,18 @@ export const colorsForTypes = [
     background: 'rgb(47, 152, 250)'
   }
 ];
+
+export const outputLimits = [
+  {
+    name: '10',
+    index: 1
+  },
+  {
+    name: '20',
+    index: 2
+  },
+  {
+    name: '50',
+    index: 3
+  }
+];
