@@ -26,7 +26,7 @@ const TopBar: FC = () => {
         <TopBarTitle>{convertDexName()} Pokédex</TopBarTitle>
 
         <PokemonsCount>
-          <img src={Pokeball} alt="coloredPokeball" />
+          <img style={{ width: '30px' }} src={Pokeball} alt="coloredPokeball" />
 
           <p>{dex?.pokemonList.pokemon_entries.length}</p>
         </PokemonsCount>

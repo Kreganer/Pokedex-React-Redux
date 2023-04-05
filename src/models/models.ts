@@ -59,7 +59,6 @@ export interface Pokemon {
   stats: IPokemonStats[];
   types: IPokemonTypes[];
   weight: number | null;
-  varieties: PokemonVarieties[] | [];
 }
 
 export interface IPokemonList {
@@ -67,13 +66,6 @@ export interface IPokemonList {
   pokemon_species: {
     name: string | null | undefined;
     url: string | null | undefined;
-  };
-}
-
-export interface PokemonVarieties {
-  pokemon: {
-    name: string;
-    url: string;
   };
 }
 
