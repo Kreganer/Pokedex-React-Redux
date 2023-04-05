@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { useAppSelector } from '../../store/hooks';
-import { Pokeball } from '../../icons/index';
+import { useAppSelector } from 'src/store/hooks';
+import Pokeball from 'src/icons';
 import {
   LeftSideWrapper,
   PokemonsCount,

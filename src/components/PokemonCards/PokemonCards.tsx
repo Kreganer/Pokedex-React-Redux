@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { IPokemonCards } from '../../models/models';
+import { IPokemonCards } from 'src/models/models';
 import {
   BaseStats,
   CurrentPokemonInfo,

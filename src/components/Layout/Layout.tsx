@@ -1,12 +1,12 @@
 import { FC, useEffect } from 'react';
 import { useActions, useAppSelector } from '../../store/hooks';
 import { useSearchParams } from 'react-router-dom';
-import TopBar from '../TopBar/TopBar';
-import BottomBar from '../BottomBar/BottomBar';
-import PokemonList from '../PokemonList/PokemonList';
+import TopBar from 'src/components/TopBar/TopBar';
+import PokemonList from 'src/components/PokemonList/PokemonList';
+import BottomBar from 'src/components/BottomBar/BottomBar';
 
 const Layout: FC = () => {
-  const { limit, dexName, dex } = useAppSelector((state) => state.pokemonsReducer);
+  const { dexName, dex } = useAppSelector((state) => state.pokemonsReducer);
   const { getPokemons } = useActions();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -18,7 +18,7 @@ const Layout: FC = () => {
       dexName: dexName,
       dex: dex
     });
-  }, [dexName, searchParams, limit]);
+  }, [dexName, searchParams]);
 
   const checkSearchParams = () => {
     if (searchParams.get('page') === null || searchParams.get('limit') === null) {

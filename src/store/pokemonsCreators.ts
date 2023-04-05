@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { url } from '../helpers/constants';
-import { Dex, PayloadPokemons, Pokemon } from '../models/models';
+import { url } from 'src/helpers/constants';
+import { Dex, PayloadPokemons, Pokemon } from 'src/models/models';
 
 interface PageParams {
   currentPage: number;

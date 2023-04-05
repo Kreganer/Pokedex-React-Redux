@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
-import { Pokemon } from '../../models/models';
-import { useAppSelector } from '../../store/hooks';
+import { Pokemon } from 'src/models/models';
+import { useAppSelector } from 'src/store/hooks';
 import PokemonCards from '../PokemonCards/PokemonCards';
 import {
   GradientBackground,

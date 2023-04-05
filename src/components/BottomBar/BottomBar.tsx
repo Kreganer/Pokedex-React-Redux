@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { Pagination } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
-import { useAppSelector } from '../../store/hooks';
-import { outputLimits } from '../../helpers/constants';
+import { useAppSelector } from 'src/store/hooks';
+import { outputLimits } from 'src/helpers/constants';
 import { BottomBarWrapper, BottomButtonWrapper, StyledButton } from './style';
 
 const BottomBar: FC = () => {

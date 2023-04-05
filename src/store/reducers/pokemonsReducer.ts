@@ -1,10 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Dex } from '../../models/models';
+import { Dex } from 'src/models/models';
 import { getPokemons } from '../pokemonsCreators';
 
 interface PokemonsState {
   isLoading: boolean;
-  limit: number;
   currentPage: number;
   dexName: string;
   dex: Dex | null;
@@ -13,7 +12,6 @@ interface PokemonsState {
 
 const initialState: PokemonsState = {
   isLoading: false,
-  limit: 10,
   currentPage: 0,
   dexName: 'national',
   dex: null,
