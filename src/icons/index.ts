@@ -1,5 +1,3 @@
 import Pokeball from './PokeballIcon.svg';
 
-export {
-  Pokeball
-};
+export default Pokeball;

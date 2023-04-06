@@ -109,6 +109,14 @@ export const PokemonCardImageShiny = styled.img`
   animation: ${hideShinyPokemonSprite} 1s forwards ease-in;
 `;
 
+export const StyledSpan = styled.span`
+  padding: 5px;
+  border-radius: 0px 0px 15px 15px;
+  justify-self: end;
+  background: ${theme.light.greyGlass};
+  color: ${theme.light.textColorWhite};
+`;
+
 export const PokemonCardBottom = styled.div`
   width: 80%;
   height: 100%;

@@ -1,33 +1,37 @@
 import { FC, useEffect } from 'react';
 import { useActions, useAppSelector } from '../../store/hooks';
 import { useSearchParams } from 'react-router-dom';
-import TopBar from '../TopBar/TopBar';
-import BottomBar from '../BottomBar/BottomBar';
-import PokemonList from '../PokemonList/PokemonList';
+import TopBar from 'src/components/TopBar/TopBar';
+import PokemonList from 'src/components/PokemonList/PokemonList';
+import BottomBar from 'src/components/BottomBar/BottomBar';
+import { Loader } from '../Loader/Loader';
 
 const Layout: FC = () => {
-  const { limit, dexName, dex } = useAppSelector((state) => state.pokemonsReducer);
+  const { dexName, dex, isLoading } = useAppSelector((state) => state.pokemonsReducer);
   const { getPokemons } = useActions();
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    checkPage();
+    checkSearchParams();
     getPokemons({
-      limit: limit,
+      limit: Number(searchParams.get('limit')) ?? 10,
       currentPage: Number(searchParams.get('page')) ?? 1,
       dexName: dexName,
       dex: dex
     });
-  }, [dexName, searchParams, limit]);
+  }, [dexName, searchParams]);
 
-  const checkPage = () => {
-    if (searchParams.get('page') === null) {
+  const checkSearchParams = () => {
+    if (searchParams.get('page') === null || searchParams.get('limit') === null) {
       searchParams.set('page', '1');
+      searchParams.set('limit', '10');
       setSearchParams(searchParams);
     } else {
       return;
     }
   };
+
+  if (isLoading) return <Loader />;
 
   return (
     <div>
