@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { theme } from 'src/style';
 
 const loadingImageRotate = keyframes`
   0% {
@@ -15,6 +16,7 @@ export const LoaderWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  background: ${theme.light.pokemonListBackgroundSecond}
 `;
 
 export const LoadingImage = styled.img`
