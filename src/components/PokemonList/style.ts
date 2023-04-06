@@ -19,22 +19,30 @@ export const PokemonsWrapper = styled.div`
 `;
 
 export const PokemonListWrapper = styled.div`
-  width: 35%;
+  width: 40%;
   height: 85vh;
   position: absolute;
   top: 90px;
   right: 30px;
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
 `;
 
 export const PokemonBox = styled.div`
-  width: 95%;
+  width: 80%;
   height: 80px;
-  margin-bottom: 20px;
+  margin: 0px 10px 20px 0px;
   display: flex;
   align-items: center;
   background: ${theme.light.pokemonBackground};
   border-radius: 20px;
+  transition: all 0.2s ease-in-out;
+  :hover {
+    box-shadow: 0px 5px 7px ${theme.light.greyGlass};
+    transform: translateX(-50px);
+  }
 `;
 
 export const PokemonImage = styled.img`

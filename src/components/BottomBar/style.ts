@@ -33,5 +33,8 @@ export const StyledButton = styled.button`
   margin-left: 10px;
   background: ${theme.light.backgroundBlack};
   color: ${theme.light.textColorWhite};
+  :hover {
+    background-color: rgba(255, 255, 255, 0.25)
+  }
   cursor: pointer;
 `;

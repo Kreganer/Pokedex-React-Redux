@@ -10,8 +10,13 @@ const BottomBar: FC = () => {
   const { dex } = useAppSelector((state) => state.pokemonsReducer);
 
   const handleChangePage = (page: string) => {
-    searchParams.set('page', page);
-    setSearchParams(searchParams);
+    if (dex && Number(page) > dex?.amountPages) {
+      searchParams.set('page', (dex?.amountPages - 1).toString());
+      setSearchParams(searchParams);
+    } else {
+      searchParams.set('page', page);
+      setSearchParams(searchParams);
+    }
   };
 
   const handleChangeLimit = (limit: string) => {
@@ -48,10 +53,11 @@ const BottomBar: FC = () => {
               borderRadius: '15px',
               borderColor: 'white'
             },
-            '.css-19xm0h7-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected': {
-              backgroundColor: 'rgba(255, 255, 255, 0.75)'
+            '.MuiPaginationItem-root.Mui-selected': {
+              backgroundColor: 'rgba(255, 255, 255, 0.75)',
+              color: 'black'
             },
-            '.css-19xm0h7-MuiButtonBase-root-MuiPaginationItem-root': {
+            '.MuiPaginationItem-root': {
               '&:hover': {
                 backgroundColor: 'rgba(255, 255, 255, 0.25)',
                 color: 'white'

@@ -12,8 +12,10 @@ import {
   PokemonImagesWrapper,
   StatsContainer,
   StatsWrapper,
+  StyledSpan,
   Type
 } from './style';
+import { grey } from '@mui/material/colors';
 
 const PokemonCards: FC<IPokemonCards> = ({ currentPokemon }) => {
   return (
@@ -28,7 +30,7 @@ const PokemonCards: FC<IPokemonCards> = ({ currentPokemon }) => {
             {currentPokemon?.name?.slice(1)}
           </p>
         </CurrentPokemonInfo>
-
+        <StyledSpan>Hover over sprite to see ✨shiny sprite✨</StyledSpan>
         {currentPokemon?.sprites.other.home.front_shiny === null ? (
           <PokemonImagesWrapper>
             {currentPokemon.sprites.other['official-artwork'].front_shiny === null ? (
@@ -69,6 +71,7 @@ const PokemonCards: FC<IPokemonCards> = ({ currentPokemon }) => {
             />
           </PokemonImagesWrapper>
         )}
+        
       </PokemonCardUp>
 
       <PokemonCardBottom>
@@ -96,9 +99,9 @@ const PokemonCards: FC<IPokemonCards> = ({ currentPokemon }) => {
               )}
             </PokemonCardTypesWrapper>
 
-            <p>{currentPokemon?.height}0 cm</p>
+            <p>{(Number(currentPokemon?.height) / 10).toFixed(1)} m</p>
 
-            <p>{currentPokemon?.weight} lbs</p>
+            <p>{(Number(currentPokemon?.weight) / 10).toFixed(1)} kg</p>
           </StatsContainer>
         </StatsWrapper>
 

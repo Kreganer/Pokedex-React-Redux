@@ -20,8 +20,14 @@ export const getPokemons = createAsyncThunk('pokemons/fetch', async (query: Page
     const pokemonSpeciesList = [];
     const maxPages = Math.ceil(pokemonList.data.pokemon_entries.length / query.limit);
 
-    const currentPage = query.currentPage - 1;
+    let currentPage = query.currentPage - 1;
     let length = currentPage * query.limit + query.limit;
+
+    if (currentPage >= maxPages) {
+      console.log(maxPages);
+      
+      currentPage = maxPages - 1;
+    }
 
     if (currentPage === maxPages - 1) {
       length = pokemonList.data.pokemon_entries.length;
