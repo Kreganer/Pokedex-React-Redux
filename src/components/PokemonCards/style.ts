@@ -115,6 +115,17 @@ export const StyledSpan = styled.span`
   justify-self: end;
   background: ${theme.light.greyGlass};
   color: ${theme.light.textColorWhite};
+  cursor: default;
+`;
+
+export const StyledButton = styled.button`
+  padding: 5px;
+  border: 0px;
+  border-radius: 0px 0px 15px 15px;
+  justify-self: end;
+  background: ${theme.light.greyGlass};
+  color: ${theme.light.textColorWhite};
+  cursor: pointer;
 `;
 
 export const PokemonCardBottom = styled.div`
@@ -129,27 +140,27 @@ export const PokemonCardBottom = styled.div`
   background: ${theme.light.greyGlass};
 `;
 
-export const StatsWrapper = styled.div`
-  width: 100%;
-  padding: 10px;
-  display: flex;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  align-items: center;
-  justify-content: space-between;
-  background: ${theme.light.pokemonStats};
-`;
-
 export const PokemonCardTypesWrapper = styled.div`
   width: 100%;
-  height: 30%;
+  height: 10%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   color: ${theme.light.textColorWhite};
 `;
 
-export const BaseStats = styled.div`
+export const PokemonCardTypesEffectivityWrapper = styled.div`
+  width: 100%;
+  height: 10%;
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  grid-template-rows: 2;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  color: ${theme.light.textColorWhite};
+`;
+
+export const Stats = styled.div`
   width: 100%;
   height: 100%;
   padding: 10px;

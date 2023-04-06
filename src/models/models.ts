@@ -98,3 +98,19 @@ export interface IPokemonTypes {
 export interface IPokemonCards {
   currentPokemon: Pokemon;
 }
+
+export interface TypesEffectivity {
+  damage_relations: {
+    double_damage_from: TypeEffectivity[] | null;
+    double_damage_to: TypeEffectivity[] | null;
+    half_damage_from: TypeEffectivity[] | null;
+    half_damage_to: TypeEffectivity[] | null;
+    no_damage_from: TypeEffectivity[] | null;
+    no_damage_to: TypeEffectivity[] | null;
+  };
+}
+
+export interface TypeEffectivity {
+  name: string;
+  value: string;
+}

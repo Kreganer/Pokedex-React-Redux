@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { url } from 'src/helpers/constants';
-import { Dex, PayloadPokemons, Pokemon } from 'src/models/models';
+import { Dex, PayloadPokemons, Pokemon, TypesEffectivity } from 'src/models/models';
 
 interface PageParams {
   currentPage: number;
@@ -11,6 +11,10 @@ interface PageParams {
   search?: string | null;
   dexName?: string | null;
   dex?: Dex | null;
+}
+
+interface PokemonParams {
+  currentPokemon: Pokemon | null;
 }
 
 export const getPokemons = createAsyncThunk('pokemons/fetch', async (query: PageParams) => {
@@ -25,7 +29,7 @@ export const getPokemons = createAsyncThunk('pokemons/fetch', async (query: Page
 
     if (currentPage >= maxPages) {
       console.log(maxPages);
-      
+
       currentPage = maxPages - 1;
     }
 
@@ -51,6 +55,29 @@ export const getPokemons = createAsyncThunk('pokemons/fetch', async (query: Page
   }
 });
 
+export const getTypesEffectivity = createAsyncThunk(
+  'poketype/fetch',
+  async (query: PokemonParams) => {
+    try {
+      const pokemonTypesEffectivity = [];
+      if (query.currentPokemon) {
+        for (let index = 0; index < query.currentPokemon.types.length; index++) {
+          const typeInformation = await axios.get<TypesEffectivity>(
+            `${url}type/${query.currentPokemon.types[index].type.name}/`
+          );
+
+          pokemonTypesEffectivity.push(typeInformation.data);
+        }
+      }
+
+      return pokemonTypesEffectivity;
+    } catch (e) {
+      return e;
+    }
+  }
+);
+
 export const pokemonsThunkActions = {
-  getPokemons
+  getPokemons,
+  getTypesEffectivity
 };

@@ -1,7 +1,8 @@
-import { FC } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { IPokemonCards } from 'src/models/models';
+import { useActions, useAppSelector } from 'src/store/hooks';
 import {
-  BaseStats,
+  Stats,
   CurrentPokemonInfo,
   PokemonCard,
   PokemonCardBottom,
@@ -11,13 +12,74 @@ import {
   PokemonCardUp,
   PokemonImagesWrapper,
   StatsContainer,
-  StatsWrapper,
+  StyledButton,
   StyledSpan,
-  Type
+  Type,
+  PokemonCardTypesEffectivityWrapper
 } from './style';
-import { grey } from '@mui/material/colors';
+import { effectForTypes } from 'src/helpers/constants';
 
 const PokemonCards: FC<IPokemonCards> = ({ currentPokemon }) => {
+  const [isStats, setIsStats] = useState(true);
+  const { getTypesEffectivity } = useActions();
+  const { typesEffectivity } = useAppSelector((state) => state.pokemonsReducer);
+  const effectivenessAgainstPokemon = effectForTypes;
+  console.log(effectivenessAgainstPokemon);
+
+  useEffect(() => {
+    setIsStats(true);
+  }, [currentPokemon]);
+
+  useEffect(() => {
+    getTypesEffectivity({ currentPokemon: currentPokemon });
+    resetEffectivity();
+    calculateEffrctivity();
+  }, [isStats]);
+
+  const handleChangeIsStats = () => {
+    setIsStats(!isStats);
+  };
+
+  const calculateEffrctivity = () => {
+    typesEffectivity.forEach((effect) => {
+      effect.damage_relations.double_damage_from?.forEach((element) => {
+        for (let index = 0; index < effectivenessAgainstPokemon.length; index++) {
+          if (effectivenessAgainstPokemon[index].name === element.name) {
+            effectivenessAgainstPokemon[index].value *= 2;
+
+            return;
+          }
+        }
+      });
+      effect.damage_relations.half_damage_from?.forEach((element) => {
+        for (let index = 0; index < effectivenessAgainstPokemon.length; index++) {
+          if (effectivenessAgainstPokemon[index].name === element.name) {
+            effectivenessAgainstPokemon[index].value *= 0.5;
+
+            return;
+          }
+        }
+      });
+      effect.damage_relations.no_damage_from?.forEach((element) => {
+        for (let index = 0; index < effectivenessAgainstPokemon.length; index++) {
+          if (effectivenessAgainstPokemon[index].name === element.name) {
+            effectivenessAgainstPokemon[index].value *= 0;
+
+            return;
+          }
+        }
+      });
+    });
+
+    return effectivenessAgainstPokemon;
+  };
+
+  const resetEffectivity = () => {
+    effectivenessAgainstPokemon.forEach((effect) => {
+      effect.value = 1;
+    });
+  };
+
   return (
     <PokemonCard>
       <PokemonCardUp>
@@ -71,57 +133,126 @@ const PokemonCards: FC<IPokemonCards> = ({ currentPokemon }) => {
             />
           </PokemonImagesWrapper>
         )}
-        
       </PokemonCardUp>
 
       <PokemonCardBottom>
-        <StatsWrapper>
-          <StatsContainer>
-            <p>Types:</p>
+        {isStats ? (
+          <Stats>
+            <StatsContainer>
+              <p>Types:</p>
 
-            <p>Height:</p>
+              <p>Height:</p>
 
-            <p>Weight:</p>
-          </StatsContainer>
+              <p>Weight:</p>
 
-          <StatsContainer>
-            <PokemonCardTypesWrapper>
-              <Type color={currentPokemon?.types[0]?.type.name}>
-                {currentPokemon?.types[0]?.type.name.charAt(0).toLocaleUpperCase()}
-                {currentPokemon?.types[0]?.type.name.slice(1)}
-              </Type>
+              {currentPokemon?.stats?.map((stat, index) => (
+                <p key={index}>
+                  {stat.stat.name[0].toLocaleUpperCase()}
+                  {stat.stat.name.slice(1)}:
+                </p>
+              ))}
+            </StatsContainer>
 
-              {currentPokemon?.types[1] && (
-                <Type color={currentPokemon.types[1]?.type.name}>
-                  {currentPokemon.types[1]?.type.name.charAt(0).toLocaleUpperCase()}
-                  {currentPokemon.types[1]?.type.name.slice(1)}
+            <StatsContainer>
+              <PokemonCardTypesWrapper>
+                <Type color={currentPokemon?.types[0]?.type.name}>
+                  {currentPokemon?.types[0]?.type.name.charAt(0).toLocaleUpperCase()}
+                  {currentPokemon?.types[0]?.type.name.slice(1)}
                 </Type>
-              )}
-            </PokemonCardTypesWrapper>
 
-            <p>{(Number(currentPokemon?.height) / 10).toFixed(1)} m</p>
+                {currentPokemon?.types[1] && (
+                  <Type color={currentPokemon.types[1]?.type.name}>
+                    {currentPokemon.types[1]?.type.name.charAt(0).toLocaleUpperCase()}
+                    {currentPokemon.types[1]?.type.name.slice(1)}
+                  </Type>
+                )}
+              </PokemonCardTypesWrapper>
+              <p>{(Number(currentPokemon?.height) / 10).toFixed(1)} m</p>
+              <p>{(Number(currentPokemon?.weight) / 10).toFixed(1)} kg</p>3
+              {currentPokemon?.stats?.map((stat, index) => (
+                <p key={index}>{stat.base_stat}</p>
+              ))}
+            </StatsContainer>
+          </Stats>
+        ) : (
+          <Stats>
+            <StatsContainer>
+              <p>Very weak to:</p>
 
-            <p>{(Number(currentPokemon?.weight) / 10).toFixed(1)} kg</p>
-          </StatsContainer>
-        </StatsWrapper>
+              <p>Weak to:</p>
 
-        <BaseStats>
-          <StatsContainer>
-            {currentPokemon?.stats?.map((stat, index) => (
-              <p key={index}>
-                {stat.stat.name[0].toLocaleUpperCase()}
-                {stat.stat.name.slice(1)}:
-              </p>
-            ))}
-          </StatsContainer>
+              <p>Resistant to:</p>
 
-          <StatsContainer>
-            {currentPokemon?.stats?.map((stat, index) => (
-              <p key={index}>{stat.base_stat}</p>
-            ))}
-          </StatsContainer>
-        </BaseStats>
+              <p>Immune to:</p>
+            </StatsContainer>
+
+            <StatsContainer>
+              <PokemonCardTypesEffectivityWrapper>
+                {effectForTypes.map((type, index) => {
+                  if (type.value === 4) {
+                    return (
+                      <Type key={index} color={type.name}>
+                        {type.name.charAt(0).toLocaleUpperCase()}
+                        {type.name.slice(1)}
+                        {' x'}
+                        {type.value}{' '}
+                      </Type>
+                    );
+                  }
+                })}
+              </PokemonCardTypesEffectivityWrapper>
+
+              <PokemonCardTypesEffectivityWrapper>
+                {effectForTypes.map((type, index) => {
+                  if (type.value === 2) {
+                    return (
+                      <Type key={index} color={type.name}>
+                        {type.name.charAt(0).toLocaleUpperCase()}
+                        {type.name.slice(1)}
+                        {' x'}
+                        {type.value}{' '}
+                      </Type>
+                    );
+                  }
+                })}
+              </PokemonCardTypesEffectivityWrapper>
+
+              <PokemonCardTypesEffectivityWrapper>
+                {effectForTypes.map((type, index) => {
+                  if (type.value <= 0.5 && type.value > 0) {
+                    return (
+                      <Type key={index} color={type.name}>
+                        {type.name.charAt(0).toLocaleUpperCase()}
+                        {type.name.slice(1)}
+                        {' x'}
+                        {type.value}{' '}
+                      </Type>
+                    );
+                  }
+                })}
+              </PokemonCardTypesEffectivityWrapper>
+
+              <PokemonCardTypesEffectivityWrapper>
+                {effectForTypes.map((type, index) => {
+                  if (type.value <= 0) {
+                    return (
+                      <Type key={index} color={type.name}>
+                        {type.name.charAt(0).toLocaleUpperCase()}
+                        {type.name.slice(1)}
+                        {' x'}
+                        {type.value}{' '}
+                      </Type>
+                    );
+                  }
+                })}
+              </PokemonCardTypesEffectivityWrapper>
+            </StatsContainer>
+          </Stats>
+        )}
       </PokemonCardBottom>
+      <StyledButton type="button" onClick={handleChangeIsStats}>
+        Click to view the effectiveness of the types
+      </StyledButton>
     </PokemonCard>
   );
 };
