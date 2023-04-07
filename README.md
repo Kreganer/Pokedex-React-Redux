@@ -11,10 +11,11 @@ pokemon list.
 - Pokemon card with basic information
 ![image](https://user-images.githubusercontent.com/100797994/227577750-deba3acb-44c5-40fe-9eb6-5f0a372b105e.png)
 - Pagination
+- Display a list of 10/20/50 Pokémon
+- Effective Types Against Pokemon
 
 # Backlog:
 
-- Display a list of 10/20/50 Pokémon
 - Search by Pokemon name
 - Filter by Pokemon type
 - Side menu with the choice of "Region" (For a separate region, its own list of Pokemon (Pokedex))
