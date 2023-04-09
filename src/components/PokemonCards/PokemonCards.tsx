@@ -24,7 +24,6 @@ const PokemonCards: FC<IPokemonCards> = ({ currentPokemon }) => {
   const { getTypesEffectivity } = useActions();
   const { typesEffectivity } = useAppSelector((state) => state.pokemonsReducer);
   const effectivenessAgainstPokemon = effectForTypes;
-  console.log(effectivenessAgainstPokemon);
 
   useEffect(() => {
     setIsStats(true);
