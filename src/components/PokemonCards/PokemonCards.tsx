@@ -146,10 +146,17 @@ const PokemonCards: FC<IPokemonCards> = ({ currentPokemon }) => {
               <p>Weight:</p>
 
               {currentPokemon?.stats?.map((stat, index) => (
-                <p key={index}>
-                  {stat.stat.name[0].toLocaleUpperCase()}
-                  {stat.stat.name.slice(1)}:
-                </p>
+                <span key={index}>
+                  {stat.stat.name
+                    .split('-')
+                    .map((namesPart) => {
+                      const pokemonStat =
+                        namesPart.charAt(0).toLocaleUpperCase() + namesPart.slice(1);
+
+                      return pokemonStat;
+                    })
+                    .join(' ')}
+                </span>
               ))}
             </StatsContainer>
 
