@@ -29,14 +29,17 @@ const BottomBar: FC = () => {
       <BottomButtonWrapper>
         <span>Set pokemons limits: </span>
         {outputLimits.map((limit) => (
-          <StyledButton key={limit.index} onClick={() => handleChangeLimit(limit.name)}>
+          <StyledButton
+            disabled={isLoading}
+            key={limit.index}
+            onClick={() => handleChangeLimit(limit.name)}>
             {limit.name}
           </StyledButton>
         ))}
       </BottomButtonWrapper>
 
       <BottomButtonWrapper>
-        <StyledButton>A</StyledButton>
+        <StyledButton disabled={isLoading}>A</StyledButton>
         <p>See Details</p>
 
         <Pagination
