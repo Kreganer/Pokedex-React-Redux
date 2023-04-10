@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import { useAppSelector } from 'src/store/hooks';
+import { useSearchParams } from 'react-router-dom';
 import Pokeball from 'src/icons';
+import CustomInput from '../UI/CustomInput/CustomInput';
 import {
   LeftSideWrapper,
   PokemonsCount,
@@ -10,7 +12,15 @@ import {
 } from './style';
 
 const TopBar: FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const { dex } = useAppSelector((state) => state.pokemonsReducer);
+
+  const searchPokemonBy = (searchValue: string) => {
+    searchParams.set('search', searchValue);
+    if (searchValue.length >= 2 || searchParams.get('search') === '') {
+      setSearchParams(searchParams);
+    }
+  };
 
   const convertDexName = () => {
     const rightName = dex?.pokemonList.name?.split('-').map((word) => {
@@ -33,6 +43,11 @@ const TopBar: FC = () => {
       </LeftSideWrapper>
 
       <RightSideWrapper>
+        <CustomInput
+          placeholder="Search pokemon by name"
+          onChange={(e) => searchPokemonBy(e.target.value)}
+        />
+
         <p>By Number</p>
       </RightSideWrapper>
     </TopBarWrapper>

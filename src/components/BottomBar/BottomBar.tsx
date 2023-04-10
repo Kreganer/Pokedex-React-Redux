@@ -7,7 +7,7 @@ import { BottomBarWrapper, BottomButtonWrapper, StyledButton } from './style';
 
 const BottomBar: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { dex } = useAppSelector((state) => state.pokemonsReducer);
+  const { dex, isLoading } = useAppSelector((state) => state.pokemonsReducer);
 
   const handleChangePage = (page: string) => {
     if (dex && Number(page) > dex?.amountPages) {
@@ -68,6 +68,7 @@ const BottomBar: FC = () => {
           count={dex?.amountPages}
           variant="outlined"
           shape="rounded"
+          disabled={isLoading}
           siblingCount={1}
           boundaryCount={1}
           page={Number(searchParams.get('page'))}

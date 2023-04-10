@@ -4,10 +4,9 @@ import { useSearchParams } from 'react-router-dom';
 import TopBar from 'src/components/TopBar/TopBar';
 import PokemonList from 'src/components/PokemonList/PokemonList';
 import BottomBar from 'src/components/BottomBar/BottomBar';
-import { Loader } from '../Loader/Loader';
 
 const Layout: FC = () => {
-  const { dexName, dex, isLoading } = useAppSelector((state) => state.pokemonsReducer);
+  const { dexName, dex } = useAppSelector((state) => state.pokemonsReducer);
   const { getPokemons } = useActions();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -16,6 +15,7 @@ const Layout: FC = () => {
     getPokemons({
       limit: Number(searchParams.get('limit')) ?? 10,
       currentPage: Number(searchParams.get('page')) ?? 1,
+      search: searchParams.get('search') ?? '',
       dexName: dexName,
       dex: dex
     });
@@ -30,8 +30,6 @@ const Layout: FC = () => {
       return;
     }
   };
-
-  if (isLoading) return <Loader />;
 
   return (
     <div>
