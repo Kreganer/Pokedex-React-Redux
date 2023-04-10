@@ -19,7 +19,7 @@ const TopBar: FC = () => {
   const { dex } = useAppSelector((state) => state.pokemonsReducer);
 
   useEffect(() => {
-    if (debouncedValue.length >= 3) {
+    if (debouncedValue.length >= 2) {
       searchParams.set('search', debouncedValue);
       setSearchParams(searchParams);
     } else {
@@ -54,8 +54,8 @@ const TopBar: FC = () => {
 
       <RightSideWrapper>
         <CustomInput
-          // disabled={isLoading}
-          placeholder="Search pokemon by name"
+          title="The search will start after entering 2 characters"
+          placeholder="Search (2 characters requaired)"
           onChange={(event) => {
             handleChange(event);
           }}
