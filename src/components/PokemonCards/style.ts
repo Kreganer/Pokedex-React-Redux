@@ -49,7 +49,7 @@ export const Type = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 15px;
-  background: ${({ color }) =>
+  border: 2px solid ${({ color }) =>
     colorsForTypes.find(function (item) {
       return item.name === color;
     })?.background};
