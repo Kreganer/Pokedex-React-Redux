@@ -32,7 +32,7 @@ const hideShinyPokemonSprite = keyframes`
 
 export const PokemonCard = styled.div`
   width: 50%;
-  height: 80%;
+  height: 100%;
   margin: 3%;
   padding: 100px;
   display: flex;
@@ -153,10 +153,10 @@ export const PokemonCardTypesEffectivityWrapper = styled.div`
   width: 100%;
   height: 10%;
   display: grid;
-  grid-template-columns: 30% 30% 30%;
+  grid-template-columns: 23% 23% 23% 23%;
   grid-template-rows: 2;
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
+  grid-column-gap: 8px;
+  grid-row-gap: 5px;
   color: ${theme.light.textColorWhite};
 `;
 
@@ -172,8 +172,17 @@ export const Stats = styled.div`
   background: ${theme.light.pokemonStats};
 `;
 
-export const StatsContainer = styled.div`
-  width: 50%;
+export const StatsNameContainer = styled.div`
+  width: 30%;
+  height: 100%;
+  color: ${theme.light.textColorWhite};
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+export const StatsValueContainer = styled.div`
+  width: 70%;
   height: 100%;
   color: ${theme.light.textColorWhite};
   display: flex;

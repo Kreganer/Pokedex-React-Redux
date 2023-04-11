@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Dex, TypesEffectivity } from 'src/models/models';
+import { Dex, TypeEffectivity } from 'src/models/models';
 import { getPokemons, getTypesEffectivity } from '../pokemonsCreators';
 
 interface PokemonsState {
@@ -8,7 +8,7 @@ interface PokemonsState {
   dexName: string;
   dex: Dex | null;
   error: string | null;
-  typesEffectivity: TypesEffectivity[] | [];
+  typesEffectivity: TypeEffectivity[] | null;
 }
 
 const initialState: PokemonsState = {
@@ -17,7 +17,7 @@ const initialState: PokemonsState = {
   dexName: 'national',
   dex: null,
   error: null,
-  typesEffectivity: [],
+  typesEffectivity: null
 };
 
 const pokemonSlice = createSlice({
@@ -32,7 +32,7 @@ const pokemonSlice = createSlice({
       state.isLoading = false;
       state.dex = action.payload;
     },
-    [getTypesEffectivity.fulfilled.type]: (state, action: PayloadAction<TypesEffectivity[]>) => {
+    [getTypesEffectivity.fulfilled.type]: (state, action: PayloadAction<TypeEffectivity[]>) => {
       state.typesEffectivity = action.payload;
     }
   }

@@ -124,7 +124,6 @@ export const effectForTypes = [
     name: 'ice',
     value: 1
   },
-
   {
     name: 'normal',
     value: 1

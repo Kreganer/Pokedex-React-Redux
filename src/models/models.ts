@@ -112,5 +112,5 @@ export interface TypesEffectivity {
 
 export interface TypeEffectivity {
   name: string;
-  value: string;
+  value: number;
 }

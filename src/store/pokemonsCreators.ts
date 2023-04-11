@@ -1,7 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { url } from 'src/helpers/constants';
-import { Dex, PayloadPokemons, Pokemon, TypesEffectivity } from 'src/models/models';
+import {
+  Dex,
+  PayloadPokemons,
+  Pokemon,
+  TypeEffectivity,
+  TypesEffectivity
+} from 'src/models/models';
 
 interface PageParams {
   currentPage: number;
@@ -59,6 +65,81 @@ export const getTypesEffectivity = createAsyncThunk(
   'poketype/fetch',
   async (query: PokemonParams) => {
     try {
+      const effectivenessAgainstPokemon = [
+        {
+          name: 'bug',
+          value: 1
+        },
+        {
+          name: 'dark',
+          value: 1
+        },
+        {
+          name: 'dragon',
+          value: 1
+        },
+        {
+          name: 'electric',
+          value: 1
+        },
+        {
+          name: 'fairy',
+          value: 1
+        },
+        {
+          name: 'fighting',
+          value: 1
+        },
+        {
+          name: 'fire',
+          value: 1
+        },
+        {
+          name: 'flying',
+          value: 1
+        },
+        {
+          name: 'ghost',
+          value: 1
+        },
+        {
+          name: 'grass',
+          value: 1
+        },
+        {
+          name: 'ground',
+          value: 1
+        },
+        {
+          name: 'ice',
+          value: 1
+        },
+        {
+          name: 'normal',
+          value: 1
+        },
+        {
+          name: 'poison',
+          value: 1
+        },
+        {
+          name: 'psychic',
+          value: 1
+        },
+        {
+          name: 'rock',
+          value: 1
+        },
+        {
+          name: 'steel',
+          value: 1
+        },
+        {
+          name: 'water',
+          value: 1
+        }
+      ];
+
       const pokemonTypesEffectivity = [];
       if (query.currentPokemon) {
         for (let index = 0; index < query.currentPokemon.types.length; index++) {
@@ -68,14 +149,69 @@ export const getTypesEffectivity = createAsyncThunk(
 
           pokemonTypesEffectivity.push(typeInformation.data);
         }
+
+        calculateEffectivity(pokemonTypesEffectivity, effectivenessAgainstPokemon);
       }
 
-      return pokemonTypesEffectivity;
+      return effectivenessAgainstPokemon;
     } catch (e) {
       return e;
     }
   }
 );
+
+const calculateEffectivity = (
+  pokemonTypesEffectivity: Array<TypesEffectivity>,
+  effectivenessAgainstPokemon: Array<TypeEffectivity>
+) => {
+  pokemonTypesEffectivity.forEach((effect) => {
+    effect.damage_relations.double_damage_from?.forEach((element) => {
+      effectivenessAgainstPokemon.forEach((type) => {
+        if (type.name === element.name) {
+          const effectValue = type.value;
+          Object.defineProperty(type, 'value', {
+            value: effectValue * 2,
+            configurable: true,
+            writable: false
+          });
+        }
+        return;
+      });
+    });
+
+    effect.damage_relations.half_damage_from?.forEach((element) => {
+      effectivenessAgainstPokemon.forEach((type) => {
+        if (type.name === element.name) {
+          const effectValue = type.value;
+          Object.defineProperty(type, 'value', {
+            value: effectValue * 0.5,
+            configurable: true,
+            writable: false
+          });
+
+          return;
+        }
+      });
+    });
+
+    effect.damage_relations.no_damage_from?.forEach((element) => {
+      effectivenessAgainstPokemon.forEach((type) => {
+        if (type.name === element.name) {
+          const effectValue = type.value;
+          Object.defineProperty(type, 'value', {
+            value: effectValue * 0,
+            configurable: true,
+            writable: false
+          });
+
+          return;
+        }
+      });
+    });
+  });
+
+  return effectivenessAgainstPokemon;
+};
 
 export const pokemonsThunkActions = {
   getPokemons,
