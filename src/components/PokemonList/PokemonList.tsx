@@ -1,7 +1,9 @@
-import { FC, useState } from 'react';
-import { Pokemon } from 'src/models/models';
-import { useAppSelector } from 'src/store/hooks';
+import { FC, useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useActions, useAppSelector } from 'src/store/hooks';
 import PokemonCards from '../PokemonCards/PokemonCards';
+import { Pokemon } from 'src/models/models';
+import { Loader } from '../Loader/Loader';
 import {
   GradientBackground,
   NotFound,
@@ -13,11 +15,16 @@ import {
   PokemonTypes,
   Type
 } from './style';
-import { Loader } from '../Loader/Loader';
 
 const PokemonList: FC = () => {
   const { dex, isLoading } = useAppSelector((state) => state.pokemonsReducer);
+  const { getTypesEffectivity } = useActions();
+  const [searchParams] = useSearchParams();
   const [currentPokemon, setCurrentPokemon] = useState<Pokemon | null>(null);
+
+  useEffect(() => {
+    getTypesEffectivity({ currentPokemon: currentPokemon });
+  }, [currentPokemon]);
 
   const showPokemonCard = (pokemonSpecies: Pokemon) => {
     setCurrentPokemon(pokemonSpecies);
@@ -33,7 +40,10 @@ const PokemonList: FC = () => {
           <PokemonListWrapper>
             {dex?.pokemonSpeciesList.length !== 0 ? (
               dex?.pokemonSpeciesList.map((pokemon) => (
-                <PokemonBox onClick={() => showPokemonCard(pokemon)} key={pokemon.id}>
+                <PokemonBox
+                  id="pokemonBox"
+                  onClick={() => showPokemonCard(pokemon)}
+                  key={pokemon.id}>
                   {pokemon.sprites.front_default !== null ? (
                     <PokemonImage src={pokemon.sprites.front_default} alt="pokemon image" />
                   ) : (
@@ -75,7 +85,7 @@ const PokemonList: FC = () => {
                 </PokemonBox>
               ))
             ) : (
-              <NotFound>Pokemons not found</NotFound>
+                  <NotFound>Pokemons inclides {searchParams.get('search')} not found</NotFound>
             )}
           </PokemonListWrapper>
         )}

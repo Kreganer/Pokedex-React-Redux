@@ -7,11 +7,6 @@ const Global = createGlobalStyle`
     box-sizing: border-box;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 15px;
-    /* input:-webkit-autofill {
-    -webkit-box-shadow: inset 0 0 0 50px #515151 !important;
-    -webkit-text-fill-color: white;
-    } */
-
 
     ::-webkit-scrollbar {
       width: 8px;
@@ -51,7 +46,7 @@ const theme = {
       'linear-gradient(115deg, rgba(255,255,255,0) 48%, #f3533b 48% 55%, #fb7248 55%)',
     pokemonListBackgroundSecond:
       'linear-gradient(225deg, rgba(0,161,233, 1) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 80%, rgba(229,0,91,0.5) 100%)',
-    pokemonStats: 'linear-gradient(90deg, #f24a16 45%, black 10%)',
+    pokemonStats: 'linear-gradient(90deg, #f24a16 30%, black 10%)',
     pokemonBackground: 'linear-gradient(115deg, #f24a16 50%, black 10%)',
     greyGlass: 'rgba(0,0,0, 0.2)'
   }

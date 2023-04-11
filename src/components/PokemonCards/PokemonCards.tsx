@@ -1,6 +1,6 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useState } from 'react';
 import { IPokemonCards } from 'src/models/models';
-import { useActions, useAppSelector } from 'src/store/hooks';
+import { useAppSelector } from 'src/store/hooks';
 import {
   Stats,
   CurrentPokemonInfo,
@@ -11,72 +11,20 @@ import {
   PokemonCardTypesWrapper,
   PokemonCardUp,
   PokemonImagesWrapper,
-  StatsContainer,
   StyledButton,
   StyledSpan,
   Type,
-  PokemonCardTypesEffectivityWrapper
+  PokemonCardTypesEffectivityWrapper,
+  StatsNameContainer,
+  StatsValueContainer
 } from './style';
-import { effectForTypes } from 'src/helpers/constants';
 
 const PokemonCards: FC<IPokemonCards> = ({ currentPokemon }) => {
-  const [isStats, setIsStats] = useState(true);
-  const { getTypesEffectivity } = useActions();
   const { typesEffectivity } = useAppSelector((state) => state.pokemonsReducer);
-  const effectivenessAgainstPokemon = effectForTypes;
-
-  useEffect(() => {
-    setIsStats(true);
-  }, [currentPokemon]);
-
-  useEffect(() => {
-    getTypesEffectivity({ currentPokemon: currentPokemon });
-    resetEffectivity();
-    calculateEffrctivity();
-  }, [isStats]);
+  const [isStats, setIsStats] = useState(true);
 
   const handleChangeIsStats = () => {
     setIsStats(!isStats);
-  };
-
-  const calculateEffrctivity = () => {
-    typesEffectivity.forEach((effect) => {
-      effect.damage_relations.double_damage_from?.forEach((element) => {
-        for (let index = 0; index < effectivenessAgainstPokemon.length; index++) {
-          if (effectivenessAgainstPokemon[index].name === element.name) {
-            effectivenessAgainstPokemon[index].value *= 2;
-
-            return;
-          }
-        }
-      });
-      effect.damage_relations.half_damage_from?.forEach((element) => {
-        for (let index = 0; index < effectivenessAgainstPokemon.length; index++) {
-          if (effectivenessAgainstPokemon[index].name === element.name) {
-            effectivenessAgainstPokemon[index].value *= 0.5;
-
-            return;
-          }
-        }
-      });
-      effect.damage_relations.no_damage_from?.forEach((element) => {
-        for (let index = 0; index < effectivenessAgainstPokemon.length; index++) {
-          if (effectivenessAgainstPokemon[index].name === element.name) {
-            effectivenessAgainstPokemon[index].value *= 0;
-
-            return;
-          }
-        }
-      });
-    });
-
-    return effectivenessAgainstPokemon;
-  };
-
-  const resetEffectivity = () => {
-    effectivenessAgainstPokemon.forEach((effect) => {
-      effect.value = 1;
-    });
   };
 
   return (
@@ -137,7 +85,7 @@ const PokemonCards: FC<IPokemonCards> = ({ currentPokemon }) => {
       <PokemonCardBottom>
         {isStats ? (
           <Stats>
-            <StatsContainer>
+            <StatsNameContainer>
               <p>Types:</p>
 
               <p>Height:</p>
@@ -157,9 +105,9 @@ const PokemonCards: FC<IPokemonCards> = ({ currentPokemon }) => {
                     .join(' ')}
                 </span>
               ))}
-            </StatsContainer>
+            </StatsNameContainer>
 
-            <StatsContainer>
+            <StatsValueContainer>
               <PokemonCardTypesWrapper>
                 <Type color={currentPokemon?.types[0]?.type.name}>
                   {currentPokemon?.types[0]?.type.name.charAt(0).toLocaleUpperCase()}
@@ -178,11 +126,11 @@ const PokemonCards: FC<IPokemonCards> = ({ currentPokemon }) => {
               {currentPokemon?.stats?.map((stat, index) => (
                 <p key={index}>{stat.base_stat}</p>
               ))}
-            </StatsContainer>
+            </StatsValueContainer>
           </Stats>
         ) : (
           <Stats>
-            <StatsContainer>
+            <StatsNameContainer>
               <p>Very weak to:</p>
 
               <p>Weak to:</p>
@@ -190,11 +138,11 @@ const PokemonCards: FC<IPokemonCards> = ({ currentPokemon }) => {
               <p>Resistant to:</p>
 
               <p>Immune to:</p>
-            </StatsContainer>
+            </StatsNameContainer>
 
-            <StatsContainer>
+            <StatsValueContainer>
               <PokemonCardTypesEffectivityWrapper>
-                {effectForTypes.map((type, index) => {
+                {typesEffectivity?.map((type, index) => {
                   if (type.value === 4) {
                     return (
                       <Type key={index} color={type.name}>
@@ -209,7 +157,7 @@ const PokemonCards: FC<IPokemonCards> = ({ currentPokemon }) => {
               </PokemonCardTypesEffectivityWrapper>
 
               <PokemonCardTypesEffectivityWrapper>
-                {effectForTypes.map((type, index) => {
+                {typesEffectivity?.map((type, index) => {
                   if (type.value === 2) {
                     return (
                       <Type key={index} color={type.name}>
@@ -224,7 +172,7 @@ const PokemonCards: FC<IPokemonCards> = ({ currentPokemon }) => {
               </PokemonCardTypesEffectivityWrapper>
 
               <PokemonCardTypesEffectivityWrapper>
-                {effectForTypes.map((type, index) => {
+                {typesEffectivity?.map((type, index) => {
                   if (type.value <= 0.5 && type.value > 0) {
                     return (
                       <Type key={index} color={type.name}>
@@ -239,7 +187,7 @@ const PokemonCards: FC<IPokemonCards> = ({ currentPokemon }) => {
               </PokemonCardTypesEffectivityWrapper>
 
               <PokemonCardTypesEffectivityWrapper>
-                {effectForTypes.map((type, index) => {
+                {typesEffectivity?.map((type, index) => {
                   if (type.value <= 0) {
                     return (
                       <Type key={index} color={type.name}>
@@ -252,7 +200,7 @@ const PokemonCards: FC<IPokemonCards> = ({ currentPokemon }) => {
                   }
                 })}
               </PokemonCardTypesEffectivityWrapper>
-            </StatsContainer>
+            </StatsValueContainer>
           </Stats>
         )}
       </PokemonCardBottom>
