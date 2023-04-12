@@ -32,7 +32,7 @@ export const PokemonListWrapper = styled.div`
 
   @media screen and (max-width: 375px) {
     width: 90%;
-    top: 115px;
+    top: 130px;
     right: 20px;
     height: 75vh;
   }

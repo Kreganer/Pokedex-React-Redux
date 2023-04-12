@@ -13,8 +13,10 @@ export const TopBarWrapper = styled.div`
   background: ${theme.light.topBackground};
 
   @media screen and (max-width: 425px) {
-    padding: 0px 25px 0 30px;
+    padding: 10px 25px;
     top: 10px;
+    color: white;
+    background: ${theme.light.backgroundGrey};
     height: max-content;
     flex-direction: column;
   }
