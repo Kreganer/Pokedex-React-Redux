@@ -28,17 +28,20 @@ export const PokemonListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: end;
+  box-sizing: border-box;
 
   @media screen and (max-width: 375px) {
     width: 90%;
     top: 115px;
     right: 20px;
-    height: 80vh;
+    height: 75vh;
   }
 
   @media screen and (min-width: 376px) and (max-width: 425px) {
     width: 90%;
+    top: 115px;
     right: 20px;
+    height: 80vh;
   }
 
   @media screen and (min-width: 426px) and (max-width: 768px) {
