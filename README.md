@@ -13,10 +13,10 @@ pokemon list.
 - Pagination
 - Display a list of 10/20/50 Pokémon
 - Effective Types Against Pokemon
+- Search by Pokemon name
 
 # Backlog:
 
-- Search by Pokemon name
 - Filter by Pokemon type
 - Side menu with the choice of "Region" (For a separate region, its own list of Pokemon (Pokedex))
 - Development of styles for individual sections of the Pokedex
