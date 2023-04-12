@@ -10,7 +10,6 @@ export const BottomBarWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-right: 30px;
 `;
 
 export const BottomButtonWrapper = styled.div`
@@ -18,6 +17,12 @@ export const BottomButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   color: ${theme.light.textColorWhite};
+
+  @media screen and (max-width: 425px) {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 export const StyledButton = styled.button`
@@ -34,7 +39,7 @@ export const StyledButton = styled.button`
   background: ${theme.light.backgroundBlack};
   color: ${theme.light.textColorWhite};
   :hover {
-    background-color: rgba(255, 255, 255, 0.25)
+    background-color: rgba(255, 255, 255, 0.25);
   }
   cursor: pointer;
 `;

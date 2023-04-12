@@ -20,7 +20,7 @@ export const PokemonsWrapper = styled.div`
 
 export const PokemonListWrapper = styled.div`
   width: 40%;
-  height: 85vh;
+  height: 84.5vh;
   position: absolute;
   top: 90px;
   right: 30px;
@@ -28,6 +28,23 @@ export const PokemonListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: end;
+
+  @media screen and (max-width: 375px) {
+    width: 90%;
+    top: 115px;
+    right: 20px;
+    height: 80vh;
+  }
+
+  @media screen and (min-width: 376px) and (max-width: 425px) {
+    width: 90%;
+    right: 20px;
+  }
+
+  @media screen and (min-width: 426px) and (max-width: 768px) {
+    width: 90%;
+    height: 83vh;
+  }
 `;
 
 export const PokemonBox = styled.div`
@@ -39,9 +56,34 @@ export const PokemonBox = styled.div`
   background: ${theme.light.pokemonBackground};
   border-radius: 20px;
   transition: all 0.2s ease-in-out;
+
+  :last-child {
+    margin-bottom: 0;
+  }
+
   :hover {
     box-shadow: 0px 5px 7px ${theme.light.greyGlass};
     transform: translateX(-50px);
+  }
+
+  @media screen and (max-width: 425px) {
+    width: 95%;
+    height: 200px;
+    border: 1px solid ${theme.light.backgroundBlack};
+    display: flex;
+    :hover {
+      box-shadow: 0px 0px 0px ${theme.light.greyGlass};
+      transform: translateX(0px);
+    }
+  }
+
+  @media screen and (min-width: 426px) and (max-width: 768px) {
+    width: 98%;
+    border: 1px solid ${theme.light.backgroundBlack};
+    :hover {
+      box-shadow: 0px 0px 0px ${theme.light.greyGlass};
+      transform: translateX(0px);
+    }
   }
 `;
 
@@ -56,6 +98,10 @@ export const PokemonInfo = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
+  @media screen and (max-width: 425px) {
+    flex-direction: column;
+  }
 `;
 
 export const PokemonTypes = styled.div`

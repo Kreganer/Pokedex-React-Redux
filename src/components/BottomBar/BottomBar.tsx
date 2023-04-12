@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { Pagination } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
 import { useAppSelector } from 'src/store/hooks';
@@ -7,7 +7,16 @@ import { BottomBarWrapper, BottomButtonWrapper, StyledButton } from './style';
 
 const BottomBar: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [paginationValues, setPaginationValue] = useState(1);
   const { dex, isLoading } = useAppSelector((state) => state.pokemonsReducer);
+
+  useEffect(() => {
+    if (window.innerWidth <= 425) {
+      setPaginationValue(0);
+    } else {
+      setPaginationValue(1);
+    }
+  }, [window]);
 
   const handleChangePage = (page: string) => {
     searchParams.set('page', page);
@@ -22,21 +31,27 @@ const BottomBar: FC = () => {
 
   return (
     <BottomBarWrapper>
-      <BottomButtonWrapper>
-        <span>Set pokemons limits: </span>
-        {outputLimits.map((limit) => (
-          <StyledButton
-            disabled={isLoading}
-            key={limit.index}
-            onClick={() => handleChangeLimit(limit.name)}>
-            {limit.name}
-          </StyledButton>
-        ))}
-      </BottomButtonWrapper>
+      {window.innerWidth > 425 && (
+        <BottomButtonWrapper>
+          <span>Set show pokemons limits: </span>
+          {outputLimits.map((limit) => (
+            <StyledButton
+              disabled={isLoading}
+              key={limit.index}
+              onClick={() => handleChangeLimit(limit.name)}>
+              {limit.name}
+            </StyledButton>
+          ))}
+        </BottomButtonWrapper>
+      )}
 
       <BottomButtonWrapper>
-        <StyledButton disabled={isLoading}>A</StyledButton>
-        <p>See Details</p>
+        {window.innerWidth > 768 && (
+          <>
+            <StyledButton disabled={isLoading}>A</StyledButton>
+            <p>See Details</p>
+          </>
+        )}
 
         <Pagination
           sx={{
@@ -68,8 +83,8 @@ const BottomBar: FC = () => {
           variant="outlined"
           shape="rounded"
           disabled={isLoading}
-          siblingCount={1}
-          boundaryCount={1}
+          siblingCount={paginationValues}
+          boundaryCount={paginationValues}
           showFirstButton
           showLastButton
           page={Number(searchParams.get('page'))}

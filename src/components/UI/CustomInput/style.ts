@@ -2,7 +2,7 @@ import { theme } from 'src/style';
 
 export const InputStyles = {
   customInput: {
-    width: '60%',
+    width: '70%',
     background: 'none',
     color: theme.light.textColorWhite,
     '&:hover:not(.Mui-disabled, .Mui-error):before': {

@@ -34,9 +34,13 @@ const PokemonList: FC = () => {
   return (
     <GradientBackground>
       <PokemonsWrapper>
-        {currentPokemon ? <PokemonCards currentPokemon={currentPokemon} /> : <div></div>}
+        {currentPokemon && window.innerWidth > 768 ? (
+          <PokemonCards currentPokemon={currentPokemon} />
+        ) : (
+          <div></div>
+        )}
         {isLoading ? (
-          <Loader />
+            <Loader />
         ) : (
           <PokemonListWrapper>
             {dex?.pokemonSpeciesList.length !== 0 ? (
@@ -77,7 +81,8 @@ const PokemonList: FC = () => {
               ))
             ) : (
               <NotFound>
-                Pokemons inclides &rdquo;{searchParams.get('search')}&rdquo; in name not found. Try to found in another Pokedex.
+                Pokemons inclides &rdquo;{searchParams.get('search')}&rdquo; in name not found. Try
+                to found in another Pokedex.
               </NotFound>
             )}
           </PokemonListWrapper>

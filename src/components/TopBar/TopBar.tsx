@@ -28,9 +28,6 @@ const TopBar: FC = () => {
     }
   }, [debouncedValue]);
 
-  console.log(searchValue);
-  
-
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     setSearchValue(event.target.value);
   };

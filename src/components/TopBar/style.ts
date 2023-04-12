@@ -11,13 +11,28 @@ export const TopBarWrapper = styled.div`
   width: 100%;
   height: 50px;
   background: ${theme.light.topBackground};
+
+  @media screen and (max-width: 425px) {
+    padding: 0px 25px 0 30px;
+    top: 10px;
+    height: max-content;
+    flex-direction: column;
+  }
+
+  @media screen and (min-width: 426px) and (max-width: 768px) {
+    padding: 0px 25px 0 25px;
+  }
 `;
 
 export const LeftSideWrapper = styled.div`
+  width: 40%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 40%;
+
+  @media screen and (max-width: 425px) {
+    width: 100%;
+  }
 `;
 
 export const TopBarTitle = styled.p`
@@ -42,4 +57,12 @@ export const RightSideWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   color: ${theme.light.textColorWhite};
+
+  @media screen and (max-width: 425px) {
+    width: 100%;
+  }
+
+  @media screen and (min-width: 426px) and (max-width: 768px) {
+    width: 40%;
+  }
 `;

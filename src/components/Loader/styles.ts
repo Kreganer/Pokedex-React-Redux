@@ -15,6 +15,10 @@ export const LoaderWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const LoadingImage = styled.img`
