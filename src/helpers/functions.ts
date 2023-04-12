@@ -29,6 +29,16 @@ const correctPokemonName = (pokemon: Pokemon) => {
           })
           .toString()
       );
+    } else if (
+      correctedPokemonNames
+        .map((item) => {
+          return item.cut.find(function (name) {
+            return pokemon.name.includes(name.name);
+          })?.name;
+        })
+        .toString() !== ''
+    ) {
+      return pokemonNameArr[0];
     } else if (pokemon.name.endsWith('jr')) {
       return pokemonNameArr.join(' ') + '.';
     } else {
