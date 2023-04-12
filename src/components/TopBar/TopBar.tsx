@@ -14,19 +14,21 @@ import {
 
 const TopBar: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState(searchParams.get('search'));
   const [debouncedValue] = useDebounce(searchValue, 1000);
   const { dex } = useAppSelector((state) => state.pokemonsReducer);
 
   useEffect(() => {
-    if (debouncedValue.length >= 2) {
+    if (debouncedValue && debouncedValue.length >= 2) {
       searchParams.set('search', debouncedValue);
       setSearchParams(searchParams);
     } else {
-      searchParams.delete('search');
       setSearchParams(searchParams);
     }
   }, [debouncedValue]);
+
+  console.log(searchValue);
+  
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     setSearchValue(event.target.value);
@@ -59,6 +61,7 @@ const TopBar: FC = () => {
           onChange={(event) => {
             handleChange(event);
           }}
+          value={searchValue}
         />
 
         <p>By Number</p>

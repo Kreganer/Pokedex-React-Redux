@@ -76,7 +76,9 @@ const PokemonList: FC = () => {
                 </PokemonBox>
               ))
             ) : (
-              <NotFound>Pokemons inclides {searchParams.get('search')} not found</NotFound>
+              <NotFound>
+                Pokemons inclides &rdquo;{searchParams.get('search')}&rdquo; in name not found. Try to found in another Pokedex.
+              </NotFound>
             )}
           </PokemonListWrapper>
         )}
