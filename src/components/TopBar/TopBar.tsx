@@ -23,6 +23,7 @@ const TopBar: FC = () => {
       searchParams.set('search', debouncedValue);
       setSearchParams(searchParams);
     } else {
+      searchParams.delete('search');
       setSearchParams(searchParams);
     }
   }, [debouncedValue]);
