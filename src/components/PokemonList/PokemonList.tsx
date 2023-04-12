@@ -1,9 +1,10 @@
 import { FC, useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useActions, useAppSelector } from 'src/store/hooks';
-import PokemonCards from '../PokemonCards/PokemonCards';
 import { Pokemon } from 'src/models/models';
-import { Loader } from '../Loader/Loader';
+import PokemonCards from 'src/components/PokemonCards/PokemonCards';
+import Loader from 'src/components/Loader/Loader';
+import { correctPokemonName } from 'src/helpers/functions';
 import {
   GradientBackground,
   NotFound,
@@ -56,17 +57,7 @@ const PokemonList: FC = () => {
                   <PokemonInfo>
                     <div>No. {pokemon.id}</div>
 
-                    <div>
-                      {pokemon.name
-                        .split('-')
-                        .map((namesPart) => {
-                          const pokemonName =
-                            namesPart.charAt(0).toLocaleUpperCase() + namesPart.slice(1);
-
-                          return pokemonName;
-                        })
-                        .join(' ')}
-                    </div>
+                    <div>{correctPokemonName(pokemon)}</div>
                   </PokemonInfo>
 
                   <PokemonTypes>
@@ -85,7 +76,7 @@ const PokemonList: FC = () => {
                 </PokemonBox>
               ))
             ) : (
-                  <NotFound>Pokemons inclides {searchParams.get('search')} not found</NotFound>
+              <NotFound>Pokemons inclides {searchParams.get('search')} not found</NotFound>
             )}
           </PokemonListWrapper>
         )}

@@ -8,4 +8,4 @@ const Loader: FC = () => (
   </LoaderWrapper>
 );
 
-export { Loader };
+export default Loader ;

@@ -15,7 +15,7 @@ import {
 const TopBar: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchValue, setSearchValue] = useState('');
-  const [debouncedValue] = useDebounce(searchValue, 300);
+  const [debouncedValue] = useDebounce(searchValue, 1000);
   const { dex } = useAppSelector((state) => state.pokemonsReducer);
 
   useEffect(() => {

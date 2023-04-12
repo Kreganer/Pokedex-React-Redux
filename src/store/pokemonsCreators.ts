@@ -1,13 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { url } from 'src/helpers/constants';
-import {
-  Dex,
-  PayloadPokemons,
-  Pokemon,
-  TypeEffectivity,
-  TypesEffectivity
-} from 'src/models/models';
+import { calculateEffectivity } from 'src/helpers/functions';
+import { Dex, PayloadPokemons, Pokemon, TypesEffectivity } from 'src/models/models';
 
 interface PageParams {
   currentPage: number;
@@ -165,59 +160,6 @@ export const getTypesEffectivity = createAsyncThunk(
     }
   }
 );
-
-const calculateEffectivity = (
-  pokemonTypesEffectivity: Array<TypesEffectivity>,
-  effectivenessAgainstPokemon: Array<TypeEffectivity>
-) => {
-  pokemonTypesEffectivity.forEach((effect) => {
-    effect.damage_relations.double_damage_from?.forEach((element) => {
-      effectivenessAgainstPokemon.forEach((type) => {
-        if (type.name === element.name) {
-          const effectValue = type.value;
-          Object.defineProperty(type, 'value', {
-            value: effectValue * 2,
-            configurable: true,
-            writable: false
-          });
-        }
-        return;
-      });
-    });
-
-    effect.damage_relations.half_damage_from?.forEach((element) => {
-      effectivenessAgainstPokemon.forEach((type) => {
-        if (type.name === element.name) {
-          const effectValue = type.value;
-          Object.defineProperty(type, 'value', {
-            value: effectValue * 0.5,
-            configurable: true,
-            writable: false
-          });
-
-          return;
-        }
-      });
-    });
-
-    effect.damage_relations.no_damage_from?.forEach((element) => {
-      effectivenessAgainstPokemon.forEach((type) => {
-        if (type.name === element.name) {
-          const effectValue = type.value;
-          Object.defineProperty(type, 'value', {
-            value: effectValue * 0,
-            configurable: true,
-            writable: false
-          });
-
-          return;
-        }
-      });
-    });
-  });
-
-  return effectivenessAgainstPokemon;
-};
 
 export const pokemonsThunkActions = {
   getPokemons,

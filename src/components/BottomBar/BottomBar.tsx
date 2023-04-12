@@ -10,16 +10,12 @@ const BottomBar: FC = () => {
   const { dex, isLoading } = useAppSelector((state) => state.pokemonsReducer);
 
   const handleChangePage = (page: string) => {
-    if (dex && Number(page) > dex?.amountPages) {
-      searchParams.set('page', (dex?.amountPages - 1).toString());
-      setSearchParams(searchParams);
-    } else {
-      searchParams.set('page', page);
-      setSearchParams(searchParams);
-    }
+    searchParams.set('page', page);
+    setSearchParams(searchParams);
   };
 
   const handleChangeLimit = (limit: string) => {
+    searchParams.set('page', '1');
     searchParams.set('limit', limit);
     setSearchParams(searchParams);
   };
@@ -74,6 +70,8 @@ const BottomBar: FC = () => {
           disabled={isLoading}
           siblingCount={1}
           boundaryCount={1}
+          showFirstButton
+          showLastButton
           page={Number(searchParams.get('page'))}
           onChange={(e, page) => handleChangePage(page.toString())}
         />

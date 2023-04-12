@@ -164,3 +164,101 @@ export const outputLimits = [
     index: 3
   }
 ];
+
+export const correctedPokemonNames = [
+  {
+    join: [
+      {
+        name: 'ho-oh',
+        joinValue: '-'
+      },
+      {
+        name: 'type-null',
+        joinValue: ': '
+      },
+      {
+        name: 'mr-mime',
+        joinValue: '. '
+      },
+      {
+        name: 'mr-rime',
+        joinValue: '. '
+      },
+      {
+        name: 'porygon-z',
+        joinValue: '-'
+      }
+    ],
+    cut: [
+      {
+        name: 'deoxys-normal'
+      },
+      {
+        name: 'wormadam-plant'
+      },
+      {
+        name: 'pumpkaboo-average'
+      },
+      {
+        name: 'gourgeist-average'
+      },
+      {
+        name: 'zygarde-50'
+      },
+      {
+        name: 'mimikyu-disguised'
+      },
+      {
+        name: 'basculegion-male'
+      },
+      {
+        name: 'enamorus-incarnate'
+      },
+      {
+        name: 'urshifu-single-strike'
+      },
+      {
+        name: 'indeedee-male'
+      },
+      {
+        name: 'morpeko-full-belly'
+      },
+      {
+        name: 'toxtricity-amped'
+      },
+      {
+        name: 'lycanroc-midday'
+      },
+      {
+        name: 'wishiwashi-solo'
+      },
+      {
+        name: 'aegislash-shield'
+      },
+      {
+        name: 'meowstic-male'
+      },
+      {
+        name: 'landorus-incarnate'
+      },
+      {
+        name: 'tornadus-incarnate'
+      },
+      {
+        name: 'thundurus-incarnate'
+      },
+      {
+        name: 'keldeo-ordinary'
+      },
+      {
+        name: 'meloetta-aria'
+      },
+      {
+        name: 'darmanitan-standard'
+      },
+      {
+        name: 'basculin-red-striped'
+      }
+    ]
+  }
+];

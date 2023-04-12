@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 import { IPokemonCards } from 'src/models/models';
 import { useAppSelector } from 'src/store/hooks';
+import { correctPokemonName } from 'src/helpers/functions';
 import {
   Stats,
   CurrentPokemonInfo,
@@ -33,11 +34,7 @@ const PokemonCards: FC<IPokemonCards> = ({ currentPokemon }) => {
         <CurrentPokemonInfo>
           <p>No. {currentPokemon.id}</p>
 
-          <p>
-            {currentPokemon?.name?.charAt(0).toLocaleUpperCase()}
-
-            {currentPokemon?.name?.slice(1)}
-          </p>
+          <p>{correctPokemonName(currentPokemon)}</p>
         </CurrentPokemonInfo>
         <StyledSpan>Hover over sprite to see ✨shiny sprite✨</StyledSpan>
         {currentPokemon?.sprites.other.home.front_shiny === null ? (
