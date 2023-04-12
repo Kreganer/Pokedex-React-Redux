@@ -25,6 +25,10 @@ const pokemonSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
+    [getPokemons.rejected.type]: (state, action: PayloadAction<Dex>) => {
+      state.isLoading = false;
+      state.dex = action.payload;
+    },
     [getPokemons.pending.type]: (state) => {
       state.isLoading = true;
     },

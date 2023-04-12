@@ -6,7 +6,7 @@ export const TopBarWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   position: absolute;
-  padding: 0px 350px 0 30px;
+  padding: 0px 100px 0 30px;
   top: 30px;
   width: 100%;
   height: 50px;
@@ -37,7 +37,9 @@ export const PokemonsCount = styled.div`
 `;
 
 export const RightSideWrapper = styled.div`
+  width: 30%;
   display: flex;
-  justify-content: end;
+  align-items: center;
+  justify-content: space-between;
   color: ${theme.light.textColorWhite};
 `;

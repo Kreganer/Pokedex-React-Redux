@@ -1,10 +1,12 @@
 import { FC, useState, useEffect } from 'react';
-import { Pokemon } from 'src/models/models';
+import { useSearchParams } from 'react-router-dom';
 import { useActions, useAppSelector } from 'src/store/hooks';
-import { Loader } from '../Loader/Loader';
 import PokemonCards from '../PokemonCards/PokemonCards';
+import { Pokemon } from 'src/models/models';
+import { Loader } from '../Loader/Loader';
 import {
   GradientBackground,
+  NotFound,
   PokemonBox,
   PokemonImage,
   PokemonInfo,
@@ -17,6 +19,7 @@ import {
 const PokemonList: FC = () => {
   const { dex, isLoading } = useAppSelector((state) => state.pokemonsReducer);
   const { getTypesEffectivity } = useActions();
+  const [searchParams] = useSearchParams();
   const [currentPokemon, setCurrentPokemon] = useState<Pokemon | null>(null);
 
   useEffect(() => {
@@ -35,48 +38,55 @@ const PokemonList: FC = () => {
           <Loader />
         ) : (
           <PokemonListWrapper>
-            {dex?.pokemonSpeciesList.map((pokemon) => (
-              <PokemonBox id="pokemonBox" onClick={() => showPokemonCard(pokemon)} key={pokemon.id}>
-                {pokemon.sprites.front_default !== null ? (
-                  <PokemonImage src={pokemon.sprites.front_default} alt="pokemon image" />
-                ) : (
-                  <PokemonImage
-                    src={pokemon.sprites.other['official-artwork'].front_default}
-                    alt="pokemon image"
-                  />
-                )}
-
-                <PokemonInfo>
-                  <div>No. {pokemon.id}</div>
-
-                  <div>
-                    {pokemon.name
-                      .split('-')
-                      .map((namesPart) => {
-                        const pokemonName =
-                          namesPart.charAt(0).toLocaleUpperCase() + namesPart.slice(1);
-
-                        return pokemonName;
-                      })
-                      .join(' ')}
-                  </div>
-                </PokemonInfo>
-
-                <PokemonTypes>
-                  <Type color={pokemon.types[0]?.type.name}>
-                    {pokemon.types[0]?.type.name.charAt(0).toLocaleUpperCase()}
-                    {pokemon.types[0]?.type.name.slice(1)}
-                  </Type>
-
-                  {pokemon.types[1] && (
-                    <Type color={pokemon.types[1]?.type.name}>
-                      {pokemon.types[1]?.type.name.charAt(0).toLocaleUpperCase()}
-                      {pokemon.types[1]?.type.name.slice(1)}
-                    </Type>
+            {dex?.pokemonSpeciesList.length !== 0 ? (
+              dex?.pokemonSpeciesList.map((pokemon) => (
+                <PokemonBox
+                  id="pokemonBox"
+                  onClick={() => showPokemonCard(pokemon)}
+                  key={pokemon.id}>
+                  {pokemon.sprites.front_default !== null ? (
+                    <PokemonImage src={pokemon.sprites.front_default} alt="pokemon image" />
+                  ) : (
+                    <PokemonImage
+                      src={pokemon.sprites.other['official-artwork'].front_default}
+                      alt="pokemon image"
+                    />
                   )}
-                </PokemonTypes>
-              </PokemonBox>
-            ))}
+
+                  <PokemonInfo>
+                    <div>No. {pokemon.id}</div>
+
+                    <div>
+                      {pokemon.name
+                        .split('-')
+                        .map((namesPart) => {
+                          const pokemonName =
+                            namesPart.charAt(0).toLocaleUpperCase() + namesPart.slice(1);
+
+                          return pokemonName;
+                        })
+                        .join(' ')}
+                    </div>
+                  </PokemonInfo>
+
+                  <PokemonTypes>
+                    <Type color={pokemon.types[0]?.type.name}>
+                      {pokemon.types[0]?.type.name.charAt(0).toLocaleUpperCase()}
+                      {pokemon.types[0]?.type.name.slice(1)}
+                    </Type>
+
+                    {pokemon.types[1] && (
+                      <Type color={pokemon.types[1]?.type.name}>
+                        {pokemon.types[1]?.type.name.charAt(0).toLocaleUpperCase()}
+                        {pokemon.types[1]?.type.name.slice(1)}
+                      </Type>
+                    )}
+                  </PokemonTypes>
+                </PokemonBox>
+              ))
+            ) : (
+                  <NotFound>Pokemons inclides {searchParams.get('search')} not found</NotFound>
+            )}
           </PokemonListWrapper>
         )}
       </PokemonsWrapper>

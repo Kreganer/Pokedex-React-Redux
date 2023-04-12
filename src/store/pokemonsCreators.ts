@@ -14,7 +14,7 @@ interface PageParams {
   amountPages?: number;
   limit: number;
   sort?: string | null;
-  search?: string | null;
+  search: string;
   dexName?: string | null;
   dex?: Dex | null;
 }
@@ -27,6 +27,12 @@ export const getPokemons = createAsyncThunk('pokemons/fetch', async (query: Page
   try {
     const pokemonList = await axios.get<PayloadPokemons>(`${url}pokedex/${query.dexName}/`);
 
+    if (query.search.trim() !== null) {
+      pokemonList.data.pokemon_entries = pokemonList.data.pokemon_entries.filter((pokemon) =>
+        pokemon?.pokemon_species?.name?.includes(query.search.toLocaleLowerCase())
+      );
+    }
+
     const pokemonSpeciesList = [];
     const maxPages = Math.ceil(pokemonList.data.pokemon_entries.length / query.limit);
 
@@ -34,8 +40,6 @@ export const getPokemons = createAsyncThunk('pokemons/fetch', async (query: Page
     let length = currentPage * query.limit + query.limit;
 
     if (currentPage >= maxPages) {
-      console.log(maxPages);
-
       currentPage = maxPages - 1;
     }
 
@@ -43,12 +47,14 @@ export const getPokemons = createAsyncThunk('pokemons/fetch', async (query: Page
       length = pokemonList.data.pokemon_entries.length;
     }
 
-    for (let index = currentPage * query.limit; index < length; index++) {
-      const pokemon = await axios.get<Pokemon>(
-        `${pokemonList.data.pokemon_entries[index].pokemon_species.url?.replace('-species', '')}`
-      );
+    if (pokemonList.data.pokemon_entries.length > 0) {
+      for (let index = currentPage * query.limit; index < length; index++) {
+        const pokemon = await axios.get<Pokemon>(
+          `${pokemonList.data.pokemon_entries[index].pokemon_species.url?.replace('-species', '')}`
+        );
 
-      pokemonSpeciesList.push(pokemon.data);
+        pokemonSpeciesList.push(pokemon.data);
+      }
     }
 
     return {

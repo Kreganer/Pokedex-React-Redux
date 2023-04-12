@@ -1,6 +1,9 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useAppSelector } from 'src/store/hooks';
+import { useSearchParams } from 'react-router-dom';
 import Pokeball from 'src/icons';
+import CustomInput from 'src/components/UI/CustomInput/CustomInput';
+import useDebounce from 'src/components/hooks/useDebounce';
 import {
   LeftSideWrapper,
   PokemonsCount,
@@ -10,7 +13,24 @@ import {
 } from './style';
 
 const TopBar: FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchValue, setSearchValue] = useState('');
+  const [debouncedValue] = useDebounce(searchValue, 300);
   const { dex } = useAppSelector((state) => state.pokemonsReducer);
+
+  useEffect(() => {
+    if (debouncedValue.length >= 2) {
+      searchParams.set('search', debouncedValue);
+      setSearchParams(searchParams);
+    } else {
+      searchParams.delete('search');
+      setSearchParams(searchParams);
+    }
+  }, [debouncedValue]);
+
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    setSearchValue(event.target.value);
+  };
 
   const convertDexName = () => {
     const rightName = dex?.pokemonList.name?.split('-').map((word) => {
@@ -33,6 +53,14 @@ const TopBar: FC = () => {
       </LeftSideWrapper>
 
       <RightSideWrapper>
+        <CustomInput
+          title="The search will start after entering 2 characters"
+          placeholder="Search (2 characters requaired)"
+          onChange={(event) => {
+            handleChange(event);
+          }}
+        />
+
         <p>By Number</p>
       </RightSideWrapper>
     </TopBarWrapper>
