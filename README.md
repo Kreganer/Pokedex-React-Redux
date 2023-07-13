@@ -20,3 +20,4 @@ pokemon list.
 - Filter by Pokemon type
 - Side menu with the choice of "Region" (For a separate region, its own list of Pokemon (Pokedex))
 - Development of styles for individual sections of the Pokedex
+- Types effectivity page (1-2 arguments)
