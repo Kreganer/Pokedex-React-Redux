@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { url } from 'src/helpers/constants';
+import { effectForTypes, url } from 'src/helpers/constants';
 import { calculateEffectivity } from 'src/helpers/functions';
 import { Dex, PayloadPokemons, Pokemon, TypesEffectivity } from 'src/models/models';
 
@@ -66,80 +66,7 @@ export const getTypesEffectivity = createAsyncThunk(
   'poketype/fetch',
   async (query: PokemonParams) => {
     try {
-      const effectivenessAgainstPokemon = [
-        {
-          name: 'bug',
-          value: 1
-        },
-        {
-          name: 'dark',
-          value: 1
-        },
-        {
-          name: 'dragon',
-          value: 1
-        },
-        {
-          name: 'electric',
-          value: 1
-        },
-        {
-          name: 'fairy',
-          value: 1
-        },
-        {
-          name: 'fighting',
-          value: 1
-        },
-        {
-          name: 'fire',
-          value: 1
-        },
-        {
-          name: 'flying',
-          value: 1
-        },
-        {
-          name: 'ghost',
-          value: 1
-        },
-        {
-          name: 'grass',
-          value: 1
-        },
-        {
-          name: 'ground',
-          value: 1
-        },
-        {
-          name: 'ice',
-          value: 1
-        },
-        {
-          name: 'normal',
-          value: 1
-        },
-        {
-          name: 'poison',
-          value: 1
-        },
-        {
-          name: 'psychic',
-          value: 1
-        },
-        {
-          name: 'rock',
-          value: 1
-        },
-        {
-          name: 'steel',
-          value: 1
-        },
-        {
-          name: 'water',
-          value: 1
-        }
-      ];
+      const effectivenessAgainstPokemon = JSON.parse(JSON.stringify(effectForTypes));
 
       const pokemonTypesEffectivity = [];
       if (query.currentPokemon) {

@@ -257,6 +257,9 @@ export const correctedPokemonNames = [
         name: 'darmanitan-standard'
       },
       {
+        name: 'eiscue-ice'
+      },
+      {
         name: 'basculin-red-striped'
       }
     ]

@@ -50,7 +50,7 @@ const correctPokemonName = (pokemon: Pokemon) => {
 const calculateEffectivity = (
   pokemonTypesEffectivity: Array<TypesEffectivity>,
   effectivenessAgainstPokemon: Array<TypeEffectivity>
-) => {
+  ) => {
   pokemonTypesEffectivity.forEach((effect) => {
     effect.damage_relations.double_damage_from?.forEach((element) => {
       effectivenessAgainstPokemon.forEach((type) => {
@@ -62,6 +62,7 @@ const calculateEffectivity = (
             writable: false
           });
         }
+        
         return;
       });
     });
@@ -75,9 +76,9 @@ const calculateEffectivity = (
             configurable: true,
             writable: false
           });
-
-          return;
         }
+        
+        return;
       });
     });
 
@@ -90,9 +91,9 @@ const calculateEffectivity = (
             configurable: true,
             writable: false
           });
-
-          return;
         }
+        
+        return;
       });
     });
   });

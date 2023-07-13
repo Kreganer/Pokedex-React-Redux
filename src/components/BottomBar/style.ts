@@ -2,7 +2,7 @@ import { theme } from '../../style';
 import styled from 'styled-components';
 
 export const BottomBarWrapper = styled.div`
-  position: absolute;
+  position: fixed;
   bottom: 0;
   height: 50px;
   width: 100%;

@@ -31,6 +31,40 @@ const PokemonList: FC = () => {
     setCurrentPokemon(pokemonSpecies);
   };
 
+  const changePageAnimation = () => {
+    const animatedClass = document?.getElementById('pokemonBox')?.className.toString();
+
+    if (animatedClass) {
+      const animatedClasses = document.getElementsByClassName(animatedClass);
+      for (let index = 0; index < animatedClasses?.length; index++) {
+        setTimeout(
+          (function (index) {
+            return function () {
+              animatedClasses
+                ?.item(index)
+                ?.animate(
+                  {
+                    opacity: [0, 1],
+                    transform: [`translateX(150%)`, `translateX(0)`]
+                  },
+                  {
+                    duration: animatedClasses.length * 100 + 300,
+                    easing: 'cubic-bezier(0.33, 1, 0.68, 1)',
+                    fill: 'forwards'
+                  }
+                )
+            };
+          })(index),
+          index * 100
+        );
+      }
+    }
+  };
+
+  useEffect(() => {
+    changePageAnimation();
+  }, [isLoading]);
+
   return (
     <GradientBackground>
       <PokemonsWrapper>
@@ -40,13 +74,13 @@ const PokemonList: FC = () => {
           <div></div>
         )}
         {isLoading ? (
-            <Loader />
+          <Loader />
         ) : (
-          <PokemonListWrapper>
+          <PokemonListWrapper id="pokeList">
             {dex?.pokemonSpeciesList.length !== 0 ? (
               dex?.pokemonSpeciesList.map((pokemon) => (
                 <PokemonBox
-                  id="pokemonBox"
+                  id={`pokemonBox`}
                   onClick={() => showPokemonCard(pokemon)}
                   key={pokemon.id}>
                   {pokemon.sprites.front_default !== null ? (

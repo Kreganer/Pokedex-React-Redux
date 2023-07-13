@@ -1,9 +1,9 @@
 import { FC, useEffect, useState } from 'react';
 import { useAppSelector } from 'src/store/hooks';
 import { useSearchParams } from 'react-router-dom';
-import Pokeball from 'src/icons';
 import CustomInput from 'src/components/UI/CustomInput/CustomInput';
 import useDebounce from 'src/components/hooks/useDebounce';
+import Pokeball from 'src/icons';
 import {
   LeftSideWrapper,
   PokemonsCount,
@@ -13,8 +13,16 @@ import {
 } from './style';
 
 const TopBar: FC = () => {
+  const checkSearchParams = () => {
+    if (searchParams.get('search')) {
+      return searchParams.get('search')
+    } else {
+      return ''
+    }
+  }
+
   const [searchParams, setSearchParams] = useSearchParams();
-  const [searchValue, setSearchValue] = useState(searchParams.get('search'));
+  const [searchValue, setSearchValue] = useState(() => checkSearchParams());
   const [debouncedValue] = useDebounce(searchValue, 1000);
   const { dex } = useAppSelector((state) => state.pokemonsReducer);
 
